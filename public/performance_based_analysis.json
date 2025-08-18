@@ -1,0 +1,209 @@
+{
+    "quantitative_metrics": [
+      {
+        "asset": "AAPL",
+        "total_return": 45.23,
+        "annualized_return": 38.67,
+        "sharpe_ratio": 1.58,
+        "treynor_ratio": 1.89,
+        "sortino_ratio": 2.12,
+        "information_ratio": 1.23,
+        "alpha": 3.45,
+        "beta": 1.21,
+        "tracking_error": 8.92,
+        "calmar_ratio": 2.45
+      },
+      {
+        "asset": "MSFT",
+        "total_return": 52.15,
+        "annualized_return": 44.23,
+        "sharpe_ratio": 1.93,
+        "treynor_ratio": 2.15,
+        "sortino_ratio": 2.67,
+        "information_ratio": 1.45,
+        "alpha": 4.23,
+        "beta": 0.98,
+        "tracking_error": 7.45,
+        "calmar_ratio": 2.89
+      },
+      {
+        "asset": "GOOGL",
+        "total_return": 38.67,
+        "annualized_return": 32.45,
+        "sharpe_ratio": 1.21,
+        "treynor_ratio": 1.56,
+        "sortino_ratio": 1.89,
+        "information_ratio": 0.98,
+        "alpha": 2.67,
+        "beta": 1.15,
+        "tracking_error": 9.87,
+        "calmar_ratio": 1.98
+      },
+      {
+        "asset": "AMZN",
+        "total_return": 28.94,
+        "annualized_return": 24.12,
+        "sharpe_ratio": 0.81,
+        "treynor_ratio": 1.02,
+        "sortino_ratio": 1.23,
+        "information_ratio": 0.67,
+        "alpha": 1.23,
+        "beta": 1.34,
+        "tracking_error": 11.23,
+        "calmar_ratio": 1.45
+      },
+      {
+        "asset": "TSLA",
+        "total_return": 72.33,
+        "annualized_return": 59.87,
+        "sharpe_ratio": 1.57,
+        "treynor_ratio": 1.78,
+        "sortino_ratio": 2.01,
+        "information_ratio": 1.12,
+        "alpha": 8.92,
+        "beta": 1.89,
+        "tracking_error": 15.67,
+        "calmar_ratio": 1.89
+      }
+    ],
+    "risk_analytics": [
+      {
+        "asset": "AAPL",
+        "volatility": 28.45,
+        "downside_deviation": 19.67,
+        "maximum_drawdown": -12.34,
+        "var_95": -2.45,
+        "cvar_95": -3.89,
+        "skewness": 0.23,
+        "kurtosis": 2.67,
+        "omega_ratio": 1.45,
+        "gain_loss_ratio": 1.78
+      },
+      {
+        "asset": "MSFT",
+        "volatility": 26.89,
+        "downside_deviation": 18.23,
+        "maximum_drawdown": -9.87,
+        "var_95": -2.12,
+        "cvar_95": -3.45,
+        "skewness": 0.15,
+        "kurtosis": 2.34,
+        "omega_ratio": 1.67,
+        "gain_loss_ratio": 1.98
+      },
+      {
+        "asset": "GOOGL",
+        "volatility": 31.67,
+        "downside_deviation": 22.45,
+        "maximum_drawdown": -15.23,
+        "var_95": -2.89,
+        "cvar_95": -4.56,
+        "skewness": -0.12,
+        "kurtosis": 3.45,
+        "omega_ratio": 1.23,
+        "gain_loss_ratio": 1.56
+      },
+      {
+        "asset": "AMZN",
+        "volatility": 35.12,
+        "downside_deviation": 26.78,
+        "maximum_drawdown": -18.92,
+        "var_95": -3.45,
+        "cvar_95": -5.23,
+        "skewness": -0.34,
+        "kurtosis": 4.12,
+        "omega_ratio": 1.02,
+        "gain_loss_ratio": 1.34
+      },
+      {
+        "asset": "TSLA",
+        "volatility": 45.67,
+        "downside_deviation": 32.89,
+        "maximum_drawdown": -25.67,
+        "var_95": -4.89,
+        "cvar_95": -7.45,
+        "skewness": 0.45,
+        "kurtosis": 5.78,
+        "omega_ratio": 1.34,
+        "gain_loss_ratio": 1.67
+      }
+    ],
+    "advanced_attribution": [
+      {
+        "asset": "AAPL",
+        "active_return": 12.34,
+        "systematic_risk_contribution": 8.92,
+        "idiosyncratic_risk_contribution": 3.42,
+        "performance_persistence_score": 0.78,
+        "risk_adjusted_excess_return": 2.45,
+        "jensen_alpha": 3.45,
+        "treynor_measure": 28.67
+      },
+      {
+        "asset": "MSFT",
+        "active_return": 15.67,
+        "systematic_risk_contribution": 7.45,
+        "idiosyncratic_risk_contribution": 8.22,
+        "performance_persistence_score": 0.89,
+        "risk_adjusted_excess_return": 4.23,
+        "jensen_alpha": 4.23,
+        "treynor_measure": 45.12
+      },
+      {
+        "asset": "GOOGL",
+        "active_return": 8.92,
+        "systematic_risk_contribution": 9.87,
+        "idiosyncratic_risk_contribution": -0.95,
+        "performance_persistence_score": 0.65,
+        "risk_adjusted_excess_return": 2.67,
+        "jensen_alpha": 2.67,
+        "treynor_measure": 28.21
+      },
+      {
+        "asset": "AMZN",
+        "active_return": 3.45,
+        "systematic_risk_contribution": 11.23,
+        "idiosyncratic_risk_contribution": -7.78,
+        "performance_persistence_score": 0.45,
+        "risk_adjusted_excess_return": 1.23,
+        "jensen_alpha": 1.23,
+        "treynor_measure": 18.03
+      },
+      {
+        "asset": "TSLA",
+        "active_return": 23.45,
+        "systematic_risk_contribution": 15.67,
+        "idiosyncratic_risk_contribution": 7.78,
+        "performance_persistence_score": 0.72,
+        "risk_adjusted_excess_return": 8.92,
+        "jensen_alpha": 8.92,
+        "treynor_measure": 31.69
+      }
+    ],
+    "portfolio_level_performance": {
+      "total_return": 39.76,
+      "annualized_return": 33.45,
+      "sharpe_ratio": 1.76,
+      "treynor_ratio": 1.89,
+      "sortino_ratio": 2.34,
+      "information_ratio": 1.12,
+      "calmar_ratio": 1.23,
+      "max_drawdown": -15.67,
+      "alpha": 4.67,
+      "beta": 1.37,
+      "tracking_error": 8.92,
+      "active_return": 15.83,
+      "omega_ratio": 1.45,
+      "gain_loss_ratio": 1.78
+    },
+    "rolling_performance": {
+      "dates": [
+        "2025-01-03", "2025-02-03", "2025-03-03", "2025-04-03", "2025-05-03",
+        "2025-06-03", "2025-07-03", "2025-08-03"
+      ],
+      "rolling_sharpe_252d": [1.23, 1.45, 1.67, 1.78, 1.89, 1.76, 1.82, 1.76],
+      "rolling_alpha_252d": [2.34, 3.45, 4.56, 4.89, 5.23, 4.67, 4.78, 4.67],
+      "rolling_beta_252d": [1.12, 1.23, 1.34, 1.39, 1.42, 1.37, 1.35, 1.37],
+      "rolling_correlation_252d": [0.78, 0.82, 0.85, 0.87, 0.84, 0.84, 0.83, 0.84]
+    }
+  }

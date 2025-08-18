@@ -1,0 +1,1292 @@
+{
+  "portfolio_overview": {
+    "portfolio_summary": {
+      "total_portfolio_value": 2456789.50,
+      "todays_pnl_dollar": 12345.67,
+      "todays_pnl_percent": 0.51,
+      "total_gain_loss_dollar": 456789.23,
+      "total_gain_loss_percent": 22.9,
+      "cash_position": 23456.78,
+      "cash_percentage": 0.95,
+      "number_of_holdings": 5,
+      "average_position_size": 20.0,
+      "largest_position": "AAPL",
+      "largest_position_weight": 25.0,
+      "smallest_position": "TSLA",
+      "smallest_position_weight": 17.0
+    },
+    "current_holdings": [
+      {
+        "symbol": "AAPL",
+        "company_name": "Apple Inc.",
+        "shares_held": 1250,
+        "current_price": 185.43,
+        "todays_change_dollar": 2.34,
+        "todays_change_percent": 1.28,
+        "market_value": 231787.50,
+        "portfolio_weight": 25.0,
+        "total_return_percent": 45.23,
+        "total_gain_loss_dollar": 72345.89,
+        "cost_basis": 127.85
+      },
+      {
+        "symbol": "MSFT",
+        "company_name": "Microsoft Corporation",
+        "shares_held": 620,
+        "current_price": 378.92,
+        "todays_change_dollar": -1.56,
+        "todays_change_percent": -0.41,
+        "market_value": 234930.40,
+        "portfolio_weight": 20.0,
+        "total_return_percent": 52.15,
+        "total_gain_loss_dollar": 80456.12,
+        "cost_basis": 249.23
+      },
+      {
+        "symbol": "GOOGL",
+        "company_name": "Alphabet Inc.",
+        "shares_held": 345,
+        "current_price": 675.23,
+        "todays_change_dollar": 4.67,
+        "todays_change_percent": 0.70,
+        "market_value": 232954.35,
+        "portfolio_weight": 20.0,
+        "total_return_percent": 38.67,
+        "total_gain_loss_dollar": 65234.78,
+        "cost_basis": 487.89
+      },
+      {
+        "symbol": "AMZN",
+        "company_name": "Amazon.com Inc.",
+        "shares_held": 290,
+        "current_price": 678.45,
+        "todays_change_dollar": -2.89,
+        "todays_change_percent": -0.42,
+        "market_value": 196750.50,
+        "portfolio_weight": 18.0,
+        "total_return_percent": 28.94,
+        "total_gain_loss_dollar": 44123.67,
+        "cost_basis": 526.78
+      },
+      {
+        "symbol": "TSLA",
+        "company_name": "Tesla, Inc.",
+        "shares_held": 198,
+        "current_price": 234.67,
+        "todays_change_dollar": 8.92,
+        "todays_change_percent": 3.95,
+        "market_value": 46464.66,
+        "portfolio_weight": 17.0,
+        "total_return_percent": 72.33,
+        "total_gain_loss_dollar": 19456.89,
+        "cost_basis": 136.12
+      }
+    ],
+    "daily_movers": {
+      "biggest_gainer": {
+        "symbol": "TSLA",
+        "change_percent": 3.95,
+        "change_dollar": 8.92
+      },
+      "biggest_loser": {
+        "symbol": "AMZN",
+        "change_percent": -0.42,
+        "change_dollar": -2.89
+      }
+    },
+    "basic_performance_metrics": {
+      "total_portfolio_return": 22.9,
+      "annualized_return": 18.4,
+      "portfolio_beta": 1.37,
+      "sharpe_ratio": 1.76,
+      "best_performing_asset": {
+        "symbol": "TSLA",
+        "return": 72.33
+      },
+      "worst_performing_asset": {
+        "symbol": "AMZN",
+        "return": 28.94
+      },
+      "most_volatile_asset": {
+        "symbol": "TSLA",
+        "volatility": 45.67
+      },
+      "least_volatile_asset": {
+        "symbol": "MSFT",
+        "volatility": 26.89
+      }
+    },
+    "quick_stats": {
+      "last_rebalance_date": "2025-07-15",
+      "days_since_inception": 191,
+      "trading_days": 151,
+      "portfolio_volatility": 21.56,
+      "maximum_drawdown": -15.67,
+      "var_95": -2.98
+    }
+  },
+  "performance_based_analysis": {
+    "quantitative_metrics": [
+      {
+        "asset": "AAPL",
+        "total_return": 45.23,
+        "annualized_return": 38.67,
+        "sharpe_ratio": 1.58,
+        "treynor_ratio": 1.89,
+        "sortino_ratio": 2.12,
+        "information_ratio": 1.23,
+        "alpha": 3.45,
+        "beta": 1.21,
+        "tracking_error": 8.92,
+        "calmar_ratio": 2.45
+      },
+      {
+        "asset": "MSFT",
+        "total_return": 52.15,
+        "annualized_return": 44.23,
+        "sharpe_ratio": 1.93,
+        "treynor_ratio": 2.15,
+        "sortino_ratio": 2.67,
+        "information_ratio": 1.45,
+        "alpha": 4.23,
+        "beta": 0.98,
+        "tracking_error": 7.45,
+        "calmar_ratio": 2.89
+      },
+      {
+        "asset": "GOOGL",
+        "total_return": 38.67,
+        "annualized_return": 32.45,
+        "sharpe_ratio": 1.21,
+        "treynor_ratio": 1.56,
+        "sortino_ratio": 1.89,
+        "information_ratio": 0.98,
+        "alpha": 2.67,
+        "beta": 1.15,
+        "tracking_error": 9.87,
+        "calmar_ratio": 1.98
+      },
+      {
+        "asset": "AMZN",
+        "total_return": 28.94,
+        "annualized_return": 24.12,
+        "sharpe_ratio": 0.81,
+        "treynor_ratio": 1.02,
+        "sortino_ratio": 1.23,
+        "information_ratio": 0.67,
+        "alpha": 1.23,
+        "beta": 1.34,
+        "tracking_error": 11.23,
+        "calmar_ratio": 1.45
+      },
+      {
+        "asset": "TSLA",
+        "total_return": 72.33,
+        "annualized_return": 59.87,
+        "sharpe_ratio": 1.57,
+        "treynor_ratio": 1.78,
+        "sortino_ratio": 2.01,
+        "information_ratio": 1.12,
+        "alpha": 8.92,
+        "beta": 1.89,
+        "tracking_error": 15.67,
+        "calmar_ratio": 1.89
+      }
+    ],
+    "risk_analytics": [
+      {
+        "asset": "AAPL",
+        "volatility": 28.45,
+        "downside_deviation": 19.67,
+        "maximum_drawdown": -12.34,
+        "var_95": -2.45,
+        "cvar_95": -3.89,
+        "skewness": 0.23,
+        "kurtosis": 2.67,
+        "omega_ratio": 1.45,
+        "gain_loss_ratio": 1.78
+      },
+      {
+        "asset": "MSFT",
+        "volatility": 26.89,
+        "downside_deviation": 18.23,
+        "maximum_drawdown": -9.87,
+        "var_95": -2.12,
+        "cvar_95": -3.45,
+        "skewness": 0.15,
+        "kurtosis": 2.34,
+        "omega_ratio": 1.67,
+        "gain_loss_ratio": 1.98
+      },
+      {
+        "asset": "GOOGL",
+        "volatility": 31.67,
+        "downside_deviation": 22.45,
+        "maximum_drawdown": -15.23,
+        "var_95": -2.89,
+        "cvar_95": -4.56,
+        "skewness": -0.12,
+        "kurtosis": 3.45,
+        "omega_ratio": 1.23,
+        "gain_loss_ratio": 1.56
+      },
+      {
+        "asset": "AMZN",
+        "volatility": 35.12,
+        "downside_deviation": 26.78,
+        "maximum_drawdown": -18.92,
+        "var_95": -3.45,
+        "cvar_95": -5.23,
+        "skewness": -0.34,
+        "kurtosis": 4.12,
+        "omega_ratio": 1.02,
+        "gain_loss_ratio": 1.34
+      },
+      {
+        "asset": "TSLA",
+        "volatility": 45.67,
+        "downside_deviation": 32.89,
+        "maximum_drawdown": -25.67,
+        "var_95": -4.89,
+        "cvar_95": -7.45,
+        "skewness": 0.45,
+        "kurtosis": 5.78,
+        "omega_ratio": 1.34,
+        "gain_loss_ratio": 1.67
+      }
+    ],
+    "advanced_attribution": [
+      {
+        "asset": "AAPL",
+        "active_return": 12.34,
+        "systematic_risk_contribution": 8.92,
+        "idiosyncratic_risk_contribution": 3.42,
+        "performance_persistence_score": 0.78,
+        "risk_adjusted_excess_return": 2.45,
+        "jensen_alpha": 3.45,
+        "treynor_measure": 28.67
+      },
+      {
+        "asset": "MSFT",
+        "active_return": 15.67,
+        "systematic_risk_contribution": 7.45,
+        "idiosyncratic_risk_contribution": 8.22,
+        "performance_persistence_score": 0.89,
+        "risk_adjusted_excess_return": 4.23,
+        "jensen_alpha": 4.23,
+        "treynor_measure": 45.12
+      },
+      {
+        "asset": "GOOGL",
+        "active_return": 8.92,
+        "systematic_risk_contribution": 9.87,
+        "idiosyncratic_risk_contribution": -0.95,
+        "performance_persistence_score": 0.65,
+        "risk_adjusted_excess_return": 2.67,
+        "jensen_alpha": 2.67,
+        "treynor_measure": 28.21
+      },
+      {
+        "asset": "AMZN",
+        "active_return": 3.45,
+        "systematic_risk_contribution": 11.23,
+        "idiosyncratic_risk_contribution": -7.78,
+        "performance_persistence_score": 0.45,
+        "risk_adjusted_excess_return": 1.23,
+        "jensen_alpha": 1.23,
+        "treynor_measure": 18.03
+      },
+      {
+        "asset": "TSLA",
+        "active_return": 23.45,
+        "systematic_risk_contribution": 15.67,
+        "idiosyncratic_risk_contribution": 7.78,
+        "performance_persistence_score": 0.72,
+        "risk_adjusted_excess_return": 8.92,
+        "jensen_alpha": 8.92,
+        "treynor_measure": 31.69
+      }
+    ],
+    "portfolio_level_performance": {
+      "total_return": 39.76,
+      "annualized_return": 33.45,
+      "sharpe_ratio": 1.76,
+      "treynor_ratio": 1.89,
+      "sortino_ratio": 2.34,
+      "information_ratio": 1.12,
+      "calmar_ratio": 1.23,
+      "max_drawdown": -15.67,
+      "alpha": 4.67,
+      "beta": 1.37,
+      "tracking_error": 8.92,
+      "active_return": 15.83,
+      "omega_ratio": 1.45,
+      "gain_loss_ratio": 1.78
+    },
+    "rolling_performance": {
+      "dates": [
+        "2025-01-03", "2025-02-03", "2025-03-03", "2025-04-03", "2025-05-03",
+        "2025-06-03", "2025-07-03", "2025-08-03"
+      ],
+      "rolling_sharpe_252d": [1.23, 1.45, 1.67, 1.78, 1.89, 1.76, 1.82, 1.76],
+      "rolling_alpha_252d": [2.34, 3.45, 4.56, 4.89, 5.23, 4.67, 4.78, 4.67],
+      "rolling_beta_252d": [1.12, 1.23, 1.34, 1.39, 1.42, 1.37, 1.35, 1.37],
+      "rolling_correlation_252d": [0.78, 0.82, 0.85, 0.87, 0.84, 0.84, 0.83, 0.84]
+    }
+  },
+  "bottom_up_attribution": {
+    "portfolio_metrics": {
+      "portfolio_return": 59.41,
+      "benchmark_return": -59.63,
+      "excess_return": 119.04,
+      "data_points": 61,
+      "analysis_period": {
+        "start": "2025-04-01",
+        "end": "2025-06-30"
+      }
+    },
+    "brinson_fachler": [
+      {
+        "asset": "AAPL",
+        "portfolio_weight": 25.0,
+        "benchmark_weight": 7.0,
+        "portfolio_return": 45.23,
+        "benchmark_return": -61.45,
+        "asset_allocation": 1650.32,
+        "stock_selection": 752.18,
+        "interaction": 192.45,
+        "total_attribution": 2594.95
+      },
+      {
+        "asset": "GOOGL", 
+        "portfolio_weight": 20.0,
+        "benchmark_weight": 4.0,
+        "portfolio_return": 38.67,
+        "benchmark_return": -61.45,
+        "asset_allocation": 983.20,
+        "stock_selection": 400.48,
+        "interaction": 160.21,
+        "total_attribution": 1543.89
+      },
+      {
+        "asset": "MSFT",
+        "portfolio_weight": 25.0,
+        "benchmark_weight": 6.0,
+        "portfolio_return": 52.15,
+        "benchmark_return": -61.45,
+        "asset_allocation": 1167.75,
+        "stock_selection": 681.60,
+        "interaction": 213.87,
+        "total_attribution": 2063.22
+      },
+      {
+        "asset": "AMZN",
+        "portfolio_weight": 15.0,
+        "benchmark_weight": 3.0,
+        "portfolio_return": 28.94,
+        "benchmark_return": -61.45,
+        "asset_allocation": 737.40,
+        "stock_selection": 271.17,
+        "interaction": 108.47,
+        "total_attribution": 1117.04
+      },
+      {
+        "asset": "TSLA",
+        "portfolio_weight": 15.0,
+        "benchmark_weight": 2.0,
+        "portfolio_return": 72.33,
+        "benchmark_return": -61.45,
+        "asset_allocation": 799.85,
+        "stock_selection": 267.56,
+        "interaction": 173.59,
+        "total_attribution": 1241.00
+      }
+    ],
+    "carino_linking": [
+      {
+        "asset": "AAPL",
+        "portfolio_weight": 25.0,
+        "linked_attribution": 2387.64,
+        "periods_analyzed": 13,
+        "avg_weekly_attribution": 183.66,
+        "weekly_attribution_volatility": 89.23
+      },
+      {
+        "asset": "GOOGL",
+        "portfolio_weight": 20.0,
+        "linked_attribution": 1456.78,
+        "periods_analyzed": 13,
+        "avg_weekly_attribution": 112.06,
+        "weekly_attribution_volatility": 67.45
+      },
+      {
+        "asset": "MSFT",
+        "portfolio_weight": 25.0,
+        "linked_attribution": 1987.45,
+        "periods_analyzed": 13,
+        "avg_weekly_attribution": 152.88,
+        "weekly_attribution_volatility": 78.91
+      },
+      {
+        "asset": "AMZN",
+        "portfolio_weight": 15.0,
+        "linked_attribution": 1089.32,
+        "periods_analyzed": 13,
+        "avg_weekly_attribution": 83.79,
+        "weekly_attribution_volatility": 92.16
+      },
+      {
+        "asset": "TSLA",
+        "portfolio_weight": 15.0,
+        "linked_attribution": 1198.76,
+        "periods_analyzed": 13,
+        "avg_weekly_attribution": 92.21,
+        "weekly_attribution_volatility": 156.43
+      }
+    ],
+    "geometric_attribution": [
+      {
+        "asset": "AAPL",
+        "portfolio_weight": 25.0,
+        "geometric_portfolio_return": 44.89,
+        "geometric_benchmark_return": -60.12,
+        "geometric_excess_return": 104.01,
+        "weighted_contribution": 2600.25,
+        "volatility": 28.45,
+        "sharpe_ratio": 1.58,
+        "observations": 61
+      },
+      {
+        "asset": "GOOGL",
+        "portfolio_weight": 20.0,
+        "geometric_portfolio_return": 38.23,
+        "geometric_benchmark_return": -60.12,
+        "geometric_excess_return": 98.35,
+        "weighted_contribution": 1967.00,
+        "volatility": 31.67,
+        "sharpe_ratio": 1.21,
+        "observations": 61
+      },
+      {
+        "asset": "MSFT",
+        "portfolio_weight": 25.0,
+        "geometric_portfolio_return": 51.78,
+        "geometric_benchmark_return": -60.12,
+        "geometric_excess_return": 111.90,
+        "weighted_contribution": 2797.50,
+        "volatility": 26.89,
+        "sharpe_ratio": 1.93,
+        "observations": 61
+      },
+      {
+        "asset": "AMZN",
+        "portfolio_weight": 15.0,
+        "geometric_portfolio_return": 28.56,
+        "geometric_benchmark_return": -60.12,
+        "geometric_excess_return": 88.68,
+        "weighted_contribution": 1330.20,
+        "volatility": 35.12,
+        "sharpe_ratio": 0.81,
+        "observations": 61
+      },
+      {
+        "asset": "TSLA",
+        "portfolio_weight": 15.0,
+        "geometric_portfolio_return": 71.89,
+        "geometric_benchmark_return": -60.12,
+        "geometric_excess_return": 132.01,
+        "weighted_contribution": 1980.15,
+        "volatility": 45.67,
+        "sharpe_ratio": 1.57,
+        "observations": 61
+      }
+    ],
+    "summary": {
+      "total_brinson_fachler": 8560.10,
+      "total_carino_linking": 8119.95,
+      "total_geometric": 10675.10,
+      "average_attribution": 9118.38,
+      "attribution_consistency": 87.6
+    }
+  },
+  "factor_based_attribution": {
+    "portfolio_performance": {
+      "total_return": 39.76,
+      "annualized_return": 39.95,
+      "volatility": 21.56,
+      "sharpe_ratio": 1.76,
+      "active_return": 15.83,
+      "beta_to_market": 1.37,
+      "correlation_to_market": 0.84,
+      "observations": 251
+    },
+    "fama_french": [
+      {
+        "asset": "AAPL",
+        "alpha": 12.45,
+        "beta_market": 1.23,
+        "beta_smb": -0.15,
+        "beta_hml": -0.32,
+        "beta_rmw": 0.18,
+        "beta_cma": -0.09,
+        "r_squared": 0.78,
+        "factor_return_market": 18.67,
+        "factor_return_smb": -1.23,
+        "factor_return_hml": -2.89,
+        "factor_return_rmw": 1.45,
+        "factor_return_cma": -0.67,
+        "residual_return": 3.21,
+        "total_explained_return": 15.33
+      },
+      {
+        "asset": "GOOGL",
+        "alpha": 8.92,
+        "beta_market": 1.15,
+        "beta_smb": -0.08,
+        "beta_hml": -0.45,
+        "beta_rmw": 0.22,
+        "beta_cma": -0.12,
+        "r_squared": 0.73,
+        "factor_return_market": 17.25,
+        "factor_return_smb": -0.65,
+        "factor_return_hml": -4.05,
+        "factor_return_rmw": 1.76,
+        "factor_return_cma": -0.89,
+        "residual_return": 2.67,
+        "total_explained_return": 13.42
+      },
+      {
+        "asset": "MSFT",
+        "alpha": 15.23,
+        "beta_market": 1.28,
+        "beta_smb": -0.22,
+        "beta_hml": -0.28,
+        "beta_rmw": 0.25,
+        "beta_cma": -0.07,
+        "r_squared": 0.81,
+        "factor_return_market": 19.20,
+        "factor_return_smb": -1.80,
+        "factor_return_hml": -2.52,
+        "factor_return_rmw": 2.00,
+        "factor_return_cma": -0.52,
+        "residual_return": 4.12,
+        "total_explained_return": 16.36
+      },
+      {
+        "asset": "AMZN",
+        "alpha": 6.78,
+        "beta_market": 1.45,
+        "beta_smb": 0.05,
+        "beta_hml": -0.38,
+        "beta_rmw": 0.08,
+        "beta_cma": -0.15,
+        "r_squared": 0.69,
+        "factor_return_market": 21.75,
+        "factor_return_smb": 0.41,
+        "factor_return_hml": -3.42,
+        "factor_return_rmw": 0.64,
+        "factor_return_cma": -1.11,
+        "residual_return": 1.89,
+        "total_explained_return": 18.27
+      },
+      {
+        "asset": "TSLA",
+        "alpha": 25.67,
+        "beta_market": 1.89,
+        "beta_smb": 0.35,
+        "beta_hml": -0.52,
+        "beta_rmw": -0.12,
+        "beta_cma": -0.28,
+        "r_squared": 0.65,
+        "factor_return_market": 28.35,
+        "factor_return_smb": 2.87,
+        "factor_return_hml": -4.68,
+        "factor_return_rmw": -0.96,
+        "factor_return_cma": -2.07,
+        "residual_return": 7.84,
+        "total_explained_return": 23.51
+      }
+    ],
+    "macroeconomic": [
+      {
+        "asset": "AAPL",
+        "alpha": 18.45,
+        "beta_interest_rate": -2.34,
+        "beta_inflation": 0.67,
+        "beta_oil_price": 0.23,
+        "beta_usd_strength": -1.12,
+        "beta_econ_surprise": 0.89,
+        "r_squared": 0.42,
+        "factor_return_interest": -4.21,
+        "factor_return_inflation": 2.34,
+        "factor_return_oil": 1.67,
+        "factor_return_usd": -3.45,
+        "factor_return_econ": 2.89,
+        "residual_return": 8.92,
+        "total_explained_return": -0.76
+      },
+      {
+        "asset": "GOOGL",
+        "alpha": 16.78,
+        "beta_interest_rate": -1.89,
+        "beta_inflation": 0.45,
+        "beta_oil_price": 0.18,
+        "beta_usd_strength": -0.98,
+        "beta_econ_surprise": 0.67,
+        "r_squared": 0.38,
+        "factor_return_interest": -3.40,
+        "factor_return_inflation": 1.58,
+        "factor_return_oil": 1.31,
+        "factor_return_usd": -3.02,
+        "factor_return_econ": 2.17,
+        "residual_return": 7.23,
+        "total_explained_return": -1.36
+      },
+      {
+        "asset": "MSFT",
+        "alpha": 22.15,
+        "beta_interest_rate": -2.67,
+        "beta_inflation": 0.78,
+        "beta_oil_price": 0.12,
+        "beta_usd_strength": -1.34,
+        "beta_econ_surprise": 1.23,
+        "r_squared": 0.45,
+        "factor_return_interest": -4.81,
+        "factor_return_inflation": 2.73,
+        "factor_return_oil": 0.87,
+        "factor_return_usd": -4.13,
+        "factor_return_econ": 3.99,
+        "residual_return": 9.87,
+        "total_explained_return": -1.35
+      },
+      {
+        "asset": "AMZN",
+        "alpha": 14.23,
+        "beta_interest_rate": -2.12,
+        "beta_inflation": 0.56,
+        "beta_oil_price": 0.34,
+        "beta_usd_strength": -0.87,
+        "beta_econ_surprise": 0.78,
+        "r_squared": 0.35,
+        "factor_return_interest": -3.82,
+        "factor_return_inflation": 1.96,
+        "factor_return_oil": 2.47,
+        "factor_return_usd": -2.68,
+        "factor_return_econ": 2.53,
+        "residual_return": 6.45,
+        "total_explained_return": 0.46
+      },
+      {
+        "asset": "TSLA",
+        "alpha": 34.56,
+        "beta_interest_rate": -3.45,
+        "beta_inflation": 1.23,
+        "beta_oil_price": 0.67,
+        "beta_usd_strength": -1.78,
+        "beta_econ_surprise": 1.56,
+        "r_squared": 0.31,
+        "factor_return_interest": -6.21,
+        "factor_return_inflation": 4.31,
+        "factor_return_oil": 4.87,
+        "factor_return_usd": -5.49,
+        "factor_return_econ": 5.06,
+        "residual_return": 15.78,
+        "total_explained_return": 2.54
+      }
+    ],
+    "statistical_pca": [
+      {
+        "asset": "AAPL",
+        "alpha": 8.92,
+        "r_squared": 0.83,
+        "residual_return": 2.34,
+        "total_explained_return": 16.45,
+        "loading_pc1": 0.89,
+        "factor_return_pc1": 14.23,
+        "explained_variance_pc1": 67.8,
+        "loading_pc2": -0.23,
+        "factor_return_pc2": -1.89,
+        "explained_variance_pc2": 18.2,
+        "loading_pc3": 0.15,
+        "factor_return_pc3": 4.11,
+        "explained_variance_pc3": 8.9
+      },
+      {
+        "asset": "GOOGL",
+        "alpha": 7.45,
+        "r_squared": 0.79,
+        "residual_return": 3.21,
+        "total_explained_return": 13.67,
+        "loading_pc1": 0.76,
+        "factor_return_pc1": 12.15,
+        "explained_variance_pc1": 67.8,
+        "loading_pc2": -0.18,
+        "factor_return_pc2": -1.48,
+        "explained_variance_pc2": 18.2,
+        "loading_pc3": 0.12,
+        "factor_return_pc3": 3.00,
+        "explained_variance_pc3": 8.9
+      },
+      {
+        "asset": "MSFT",
+        "alpha": 11.23,
+        "r_squared": 0.85,
+        "residual_return": 1.89,
+        "total_explained_return": 18.34,
+        "loading_pc1": 0.92,
+        "factor_return_pc1": 14.71,
+        "explained_variance_pc1": 67.8,
+        "loading_pc2": -0.25,
+        "factor_return_pc2": -2.05,
+        "explained_variance_pc2": 18.2,
+        "loading_pc3": 0.18,
+        "factor_return_pc3": 5.68,
+        "explained_variance_pc3": 8.9
+      },
+      {
+        "asset": "AMZN",
+        "alpha": 5.67,
+        "r_squared": 0.71,
+        "residual_return": 4.56,
+        "total_explained_return": 11.89,
+        "loading_pc1": 0.67,
+        "factor_return_pc1": 10.71,
+        "explained_variance_pc1": 67.8,
+        "loading_pc2": -0.12,
+        "factor_return_pc2": -0.99,
+        "explained_variance_pc2": 18.2,
+        "loading_pc3": 0.08,
+        "factor_return_pc3": 2.17,
+        "explained_variance_pc3": 8.9
+      },
+      {
+        "asset": "TSLA",
+        "alpha": 19.45,
+        "r_squared": 0.62,
+        "residual_return": 8.23,
+        "total_explained_return": 21.67,
+        "loading_pc1": 1.15,
+        "factor_return_pc1": 18.39,
+        "explained_variance_pc1": 67.8,
+        "loading_pc2": 0.35,
+        "factor_return_pc2": 2.88,
+        "explained_variance_pc2": 18.2,
+        "loading_pc3": 0.02,
+        "factor_return_pc3": 0.40,
+        "explained_variance_pc3": 8.9
+      }
+    ],
+    "portfolio_weighted": {
+      "fama_french": {
+        "alpha": 12.61,
+        "beta_market": 1.40,
+        "beta_smb": -0.01,
+        "beta_hml": -0.39,
+        "beta_rmw": 0.12,
+        "beta_cma": -0.14,
+        "r_squared": 0.73,
+        "total_explained_return": 17.38
+      },
+      "macroeconomic": {
+        "alpha": 21.23,
+        "beta_interest_rate": -2.49,
+        "beta_inflation": 0.74,
+        "beta_oil_price": 0.31,
+        "beta_usd_strength": -1.22,
+        "beta_econ_surprise": 1.03,
+        "r_squared": 0.38,
+        "total_explained_return": -0.09
+      },
+      "statistical": {
+        "alpha": 10.54,
+        "r_squared": 0.76,
+        "loading_pc1": 0.88,
+        "loading_pc2": -0.05,
+        "loading_pc3": 0.11,
+        "total_explained_return": 16.40
+      }
+    }
+  },
+  "return_based_attribution": {
+    "portfolio_performance": {
+      "total_return": -1.63,
+      "annualized_return": -6.97,
+      "volatility": 48.02,
+      "sharpe_ratio": -0.15,
+      "tracking_error": 29.08,
+      "observations": 59
+    },
+    "style_analysis": {
+      "r_squared": 0.6255,
+      "tracking_error": 0.2908,
+      "style_weights": {
+        "SPY": 0.0000,
+        "QQQ": 0.4859,
+        "IWM": 0.0000,
+        "VTV": 0.0000,
+        "VUG": 0.5141,
+        "EFA": 0.0000,
+        "VNQ": 0.0000
+      },
+      "factor_descriptions": {
+        "SPY": "Market (S&P 500)",
+        "QQQ": "Technology/Growth",
+        "IWM": "Small Cap",
+        "VTV": "Value",
+        "VUG": "Growth",
+        "EFA": "International Developed",
+        "VNQ": "Real Estate"
+      }
+    },
+    "rolling_regression": {
+      "window_size": 30,
+      "periods_analyzed": 29,
+      "summary_stats": {
+        "SPY": {
+          "mean_beta": 0.0234,
+          "beta_volatility": 0.1567,
+          "min_beta": -0.2145,
+          "max_beta": 0.3421,
+          "current_beta": 0.0891
+        },
+        "QQQ": {
+          "mean_beta": 0.4523,
+          "beta_volatility": 0.2134,
+          "min_beta": 0.1234,
+          "max_beta": 0.7891,
+          "current_beta": 0.5234
+        },
+        "VUG": {
+          "mean_beta": 0.5234,
+          "beta_volatility": 0.1845,
+          "min_beta": 0.2345,
+          "max_beta": 0.8234,
+          "current_beta": 0.6123
+        }
+      }
+    },
+    "constrained_regression": [
+      {
+        "model": "ols",
+        "alpha": -0.0234,
+        "constraint": "None",
+        "beta_SPY": 0.0456,
+        "beta_QQQ": 0.5234,
+        "beta_IWM": -0.0123,
+        "beta_VTV": -0.0345,
+        "beta_VUG": 0.4567,
+        "beta_EFA": 0.0234,
+        "beta_VNQ": -0.0089
+      },
+      {
+        "model": "long_only",
+        "alpha": -0.0198,
+        "constraint": "Long-only (betas >= 0)",
+        "beta_SPY": 0.0000,
+        "beta_QQQ": 0.5678,
+        "beta_IWM": 0.0000,
+        "beta_VTV": 0.0000,
+        "beta_VUG": 0.4322,
+        "beta_EFA": 0.0000,
+        "beta_VNQ": 0.0000
+      },
+      {
+        "model": "fully_invested",
+        "alpha": 0.0000,
+        "constraint": "Fully invested (sum of betas = 1)",
+        "beta_SPY": 0.0000,
+        "beta_QQQ": 0.4859,
+        "beta_IWM": 0.0000,
+        "beta_VTV": 0.0000,
+        "beta_VUG": 0.5141,
+        "beta_EFA": 0.0000,
+        "beta_VNQ": 0.0000
+      }
+    ],
+    "security_attribution": [
+      {
+        "security": "ACHR",
+        "weight": 12.5,
+        "total_return": -8.45,
+        "contribution_to_portfolio": -1.06,
+        "avg_daily_return": -0.0014,
+        "volatility": 67.23,
+        "sharpe_ratio": -0.13
+      },
+      {
+        "security": "EXTR",
+        "weight": 12.5,
+        "total_return": 15.67,
+        "contribution_to_portfolio": 1.96,
+        "avg_daily_return": 0.0025,
+        "volatility": 42.18,
+        "sharpe_ratio": 0.37
+      },
+      {
+        "security": "FTNT",
+        "weight": 12.5,
+        "total_return": -3.21,
+        "contribution_to_portfolio": -0.40,
+        "avg_daily_return": -0.0005,
+        "volatility": 28.95,
+        "sharpe_ratio": -0.02
+      },
+      {
+        "security": "NVDA",
+        "weight": 12.5,
+        "total_return": 24.89,
+        "contribution_to_portfolio": 3.11,
+        "avg_daily_return": 0.0039,
+        "volatility": 52.34,
+        "sharpe_ratio": 0.48
+      },
+      {
+        "security": "PLTR",
+        "weight": 12.5,
+        "total_return": -12.34,
+        "contribution_to_portfolio": -1.54,
+        "avg_daily_return": -0.0020,
+        "volatility": 58.76,
+        "sharpe_ratio": -0.21
+      },
+      {
+        "security": "UMC",
+        "weight": 12.5,
+        "total_return": 8.92,
+        "contribution_to_portfolio": 1.12,
+        "avg_daily_return": 0.0014,
+        "volatility": 35.67,
+        "sharpe_ratio": 0.25
+      },
+      {
+        "security": "WFC",
+        "weight": 12.5,
+        "total_return": -5.78,
+        "contribution_to_portfolio": -0.72,
+        "avg_daily_return": -0.0009,
+        "volatility": 31.45,
+        "sharpe_ratio": -0.18
+      },
+      {
+        "security": "INOD",
+        "weight": 12.5,
+        "total_return": -6.66,
+        "contribution_to_portfolio": -0.83,
+        "avg_daily_return": -0.0011,
+        "volatility": 89.23,
+        "sharpe_ratio": -0.07
+      }
+    ],
+    "time_series_data": {
+      "dates": [
+        "2025-01-03", "2025-01-06", "2025-01-07", "2025-01-08", "2025-01-09",
+        "2025-01-10", "2025-01-13", "2025-01-14", "2025-01-15", "2025-01-16"
+      ],
+      "portfolio_returns": [
+        0.0234, -0.0156, 0.0089, -0.0234, 0.0167,
+        -0.0089, 0.0134, -0.0201, 0.0078, -0.0156
+      ],
+      "style_factor_returns": {
+        "QQQ": [0.0189, -0.0123, 0.0067, -0.0178, 0.0134, -0.0067, 0.0101, -0.0145, 0.0056, -0.0112],
+        "VUG": [0.0167, -0.0098, 0.0045, -0.0156, 0.0123, -0.0056, 0.0089, -0.0134, 0.0067, -0.0098]
+      },
+      "rolling_betas": {
+        "QQQ": [0.4234, 0.4567, 0.4789, 0.5123, 0.5234, 0.5345, 0.5456, 0.5567, 0.5234, 0.5123],
+        "VUG": [0.5234, 0.5123, 0.5345, 0.5456, 0.5567, 0.5678, 0.5789, 0.5890, 0.5678, 0.5567]
+      },
+      "attribution_over_time": {
+        "cumulative_attribution": [0.23, 0.45, 0.67, 0.12, 0.89, 0.34, 1.23, 0.78, 1.45, 0.98],
+        "factor_contributions": {
+          "QQQ": [0.12, 0.23, 0.34, 0.07, 0.45, 0.18, 0.67, 0.41, 0.78, 0.52],
+          "VUG": [0.11, 0.22, 0.33, 0.05, 0.44, 0.16, 0.56, 0.37, 0.67, 0.46]
+        }
+      }
+    },
+    "benchmark_performance": {
+      "SPY": {
+        "total_return": 5.23,
+        "volatility": 16.45,
+        "sharpe_ratio": 0.32
+      },
+      "QQQ": {
+        "total_return": 12.67,
+        "volatility": 22.34,
+        "sharpe_ratio": 0.57
+      },
+      "VUG": {
+        "total_return": 8.94,
+        "volatility": 18.76,
+        "sharpe_ratio": 0.48
+      }
+    }
+  },
+  "risk_based_attribution": {
+    "portfolio_risk_metrics": {
+      "total_return_annualized": 15.59,
+      "volatility_annualized": 33.60,
+      "sharpe_ratio": 0.43,
+      "max_drawdown": -32.48,
+      "var_95": -2.98,
+      "skewness": 0.52,
+      "kurtosis": 15.09,
+      "observations": 151
+    },
+    "mctr_analysis": [
+      {
+        "asset": "AAPL",
+        "weight": 25.0,
+        "mctr": 0.3205,
+        "cctr": 0.0801,
+        "cctr_percentage": 23.77,
+        "risk_rank": 2
+      },
+      {
+        "asset": "MSFT",
+        "weight": 20.0,
+        "mctr": 0.2114,
+        "cctr": 0.0423,
+        "cctr_percentage": 12.54,
+        "risk_rank": 5
+      },
+      {
+        "asset": "GOOGL",
+        "weight": 20.0,
+        "mctr": 0.2677,
+        "cctr": 0.0535,
+        "cctr_percentage": 15.89,
+        "risk_rank": 4
+      },
+      {
+        "asset": "AMZN",
+        "weight": 18.0,
+        "mctr": 0.3135,
+        "cctr": 0.0564,
+        "cctr_percentage": 16.74,
+        "risk_rank": 3
+      },
+      {
+        "asset": "TSLA",
+        "weight": 17.0,
+        "mctr": 0.6159,
+        "cctr": 0.1047,
+        "cctr_percentage": 31.06,
+        "risk_rank": 1
+      }
+    ],
+    "component_var": [
+      {
+        "asset": "AAPL",
+        "weight": 25.0,
+        "marginal_var": -0.5271,
+        "component_var": -0.1318,
+        "component_var_percentage": -442.16,
+        "diversification_benefit": 15.23
+      },
+      {
+        "asset": "MSFT",
+        "weight": 20.0,
+        "marginal_var": -0.3477,
+        "component_var": -0.0695,
+        "component_var_percentage": -233.34,
+        "diversification_benefit": 18.67
+      },
+      {
+        "asset": "GOOGL",
+        "weight": 20.0,
+        "marginal_var": -0.4404,
+        "component_var": -0.0881,
+        "component_var_percentage": -295.51,
+        "diversification_benefit": 12.45
+      },
+      {
+        "asset": "AMZN",
+        "weight": 18.0,
+        "marginal_var": -0.5157,
+        "component_var": -0.0928,
+        "component_var_percentage": -311.43,
+        "diversification_benefit": 8.92
+      },
+      {
+        "asset": "TSLA",
+        "weight": 17.0,
+        "marginal_var": -1.0131,
+        "component_var": -0.1722,
+        "component_var_percentage": -577.85,
+        "diversification_benefit": 3.45
+      }
+    ],
+    "factor_risk_decomposition": [
+      {
+        "asset": "AAPL",
+        "weight": 25.0,
+        "alpha": -0.1,
+        "market_beta": 1.207,
+        "size_beta": -0.168,
+        "tech_beta": 0.218,
+        "systematic_risk": 11.12,
+        "idiosyncratic_risk": 3.59,
+        "r_squared": 0.76,
+        "factor_contributions": {
+          "market": 8.45,
+          "size": -1.23,
+          "tech": 1.56,
+          "other": 2.34
+        }
+      },
+      {
+        "asset": "MSFT",
+        "weight": 20.0,
+        "alpha": 0.11,
+        "market_beta": 0.829,
+        "size_beta": -0.214,
+        "tech_beta": -0.011,
+        "systematic_risk": 5.29,
+        "idiosyncratic_risk": 2.39,
+        "r_squared": 0.69,
+        "factor_contributions": {
+          "market": 4.98,
+          "size": -1.87,
+          "tech": -0.08,
+          "other": 2.26
+        }
+      },
+      {
+        "asset": "GOOGL",
+        "weight": 20.0,
+        "alpha": -0.01,
+        "market_beta": 0.964,
+        "size_beta": 0.383,
+        "tech_beta": 0.993,
+        "systematic_risk": 8.60,
+        "idiosyncratic_risk": 2.64,
+        "r_squared": 0.77,
+        "factor_contributions": {
+          "market": 5.78,
+          "size": 2.34,
+          "tech": 6.12,
+          "other": -5.64
+        }
+      },
+      {
+        "asset": "AMZN",
+        "weight": 18.0,
+        "alpha": -0.01,
+        "market_beta": 0.982,
+        "size_beta": -0.809,
+        "tech_beta": -1.303,
+        "systematic_risk": 12.95,
+        "idiosyncratic_risk": 0.66,
+        "r_squared": 0.95,
+        "factor_contributions": {
+          "market": 5.89,
+          "size": -4.95,
+          "tech": -8.02,
+          "other": 20.03
+        }
+      },
+      {
+        "asset": "TSLA",
+        "weight": 17.0,
+        "alpha": 0.01,
+        "market_beta": 1.018,
+        "size_beta": 0.809,
+        "tech_beta": 0.103,
+        "systematic_risk": 51.42,
+        "idiosyncratic_risk": 0.66,
+        "r_squared": 0.99,
+        "factor_contributions": {
+          "market": 6.11,
+          "size": 4.95,
+          "tech": 0.63,
+          "other": 39.73
+        }
+      }
+    ],
+    "correlation_matrix": [
+      ["AAPL", 1.000, 0.734, 0.689, 0.623, 0.456],
+      ["MSFT", 0.734, 1.000, 0.701, 0.598, 0.412],
+      ["GOOGL", 0.689, 0.701, 1.000, 0.645, 0.434],
+      ["AMZN", 0.623, 0.598, 0.645, 1.000, 0.389],
+      ["TSLA", 0.456, 0.412, 0.434, 0.389, 1.000]
+    ],
+    "risk_concentration": {
+      "herfindahl_index": 0.235,
+      "effective_number_of_assets": 4.26,
+      "concentration_ratio_top_3": 0.618,
+      "risk_diversification_ratio": 0.824
+    },
+    "scenario_analysis": {
+      "stress_test_results": {
+        "market_crash_10pct": {
+          "portfolio_impact": -8.45,
+          "worst_contributor": "TSLA",
+          "best_contributor": "MSFT"
+        },
+        "tech_sector_decline_20pct": {
+          "portfolio_impact": -12.67,
+          "worst_contributor": "GOOGL",
+          "best_contributor": "AMZN"
+        },
+        "interest_rate_spike_200bps": {
+          "portfolio_impact": -6.23,
+          "worst_contributor": "AAPL",
+          "best_contributor": "TSLA"
+        }
+      }
+    },
+    "var_decomposition": {
+      "portfolio_var_95": -2.98,
+      "individual_var_sum": -8.94,
+      "diversification_benefit": 5.96,
+      "diversification_ratio": 0.667,
+      "marginal_var_by_asset": {
+        "AAPL": -0.527,
+        "MSFT": -0.348,
+        "GOOGL": -0.440,
+        "AMZN": -0.516,
+        "TSLA": -1.013
+      }
+    }
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-08-15T00:41:02.123Z",
+    "data_provider": "EOD Historical Data",
+    "api_version": "v2.1",
+    "analysis_methods": {
+      "overview": ["Current Holdings", "Daily P&L", "Basic Performance"],
+      "performance": ["Quantitative Metrics", "Risk Analytics", "Advanced Attribution"],
+      "bottom_up": ["Brinson-Fachler", "Carino Linking", "Geometric Attribution"],
+      "factor_based": ["Fama-French 5-Factor", "Macroeconomic Factors", "Statistical PCA"],
+      "return_based": ["Sharpe Style Analysis", "Rolling Window Regression", "Constrained Regression"],
+      "risk_based": ["MCTR Analysis", "Component VaR", "Factor Risk Decomposition"]
+    },
+    "portfolio_details": {
+      "name": "Tech Growth Portfolio",
+      "inception_date": "2025-01-02",
+      "base_currency": "USD",
+      "rebalancing_frequency": "Quarterly"
+    },
+    "data_quality": {
+      "completeness": 98.5,
+      "missing_data_points": 3,
+      "data_source_reliability": "High",
+      "last_update": "2025-08-15T00:00:00.000Z"
+    },
+    "risk_metrics": {
+      "var_95": -0.0298,
+      "cvar_95": -0.0456,
+      "max_drawdown": -0.3248,
+      "calmar_ratio": 0.48,
+      "sortino_ratio": 0.58,
+      "information_ratio": 0.67,
+      "risk_concentration_index": 0.235
+    },
+    "performance_attribution_summary": {
+      "asset_selection_effect": 1567.89,
+      "allocation_effect": 2345.67,
+      "interaction_effect": 234.56,
+      "currency_effect": 0.00,
+      "total_active_return": 4148.12
+    }
+  }
+}

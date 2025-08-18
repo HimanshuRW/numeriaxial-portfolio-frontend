@@ -1,0 +1,175 @@
+{
+    "portfolio_metrics": {
+      "portfolio_return": 59.41,
+      "benchmark_return": -59.63,
+      "excess_return": 119.04,
+      "data_points": 61,
+      "analysis_period": {
+        "start": "2025-04-01",
+        "end": "2025-06-30"
+      }
+    },
+    "brinson_fachler": [
+      {
+        "asset": "AAPL",
+        "portfolio_weight": 25.0,
+        "benchmark_weight": 7.0,
+        "portfolio_return": 45.23,
+        "benchmark_return": -61.45,
+        "asset_allocation": 1650.32,
+        "stock_selection": 752.18,
+        "interaction": 192.45,
+        "total_attribution": 2594.95
+      },
+      {
+        "asset": "GOOGL", 
+        "portfolio_weight": 20.0,
+        "benchmark_weight": 4.0,
+        "portfolio_return": 38.67,
+        "benchmark_return": -61.45,
+        "asset_allocation": 983.20,
+        "stock_selection": 400.48,
+        "interaction": 160.21,
+        "total_attribution": 1543.89
+      },
+      {
+        "asset": "MSFT",
+        "portfolio_weight": 25.0,
+        "benchmark_weight": 6.0,
+        "portfolio_return": 52.15,
+        "benchmark_return": -61.45,
+        "asset_allocation": 1167.75,
+        "stock_selection": 681.60,
+        "interaction": 213.87,
+        "total_attribution": 2063.22
+      },
+      {
+        "asset": "AMZN",
+        "portfolio_weight": 15.0,
+        "benchmark_weight": 3.0,
+        "portfolio_return": 28.94,
+        "benchmark_return": -61.45,
+        "asset_allocation": 737.40,
+        "stock_selection": 271.17,
+        "interaction": 108.47,
+        "total_attribution": 1117.04
+      },
+      {
+        "asset": "TSLA",
+        "portfolio_weight": 15.0,
+        "benchmark_weight": 2.0,
+        "portfolio_return": 72.33,
+        "benchmark_return": -61.45,
+        "asset_allocation": 799.85,
+        "stock_selection": 267.56,
+        "interaction": 173.59,
+        "total_attribution": 1241.00
+      }
+    ],
+    "carino_linking": [
+      {
+        "asset": "AAPL",
+        "portfolio_weight": 25.0,
+        "linked_attribution": 2387.64,
+        "periods_analyzed": 13,
+        "avg_weekly_attribution": 183.66,
+        "weekly_attribution_volatility": 89.23
+      },
+      {
+        "asset": "GOOGL",
+        "portfolio_weight": 20.0,
+        "linked_attribution": 1456.78,
+        "periods_analyzed": 13,
+        "avg_weekly_attribution": 112.06,
+        "weekly_attribution_volatility": 67.45
+      },
+      {
+        "asset": "MSFT",
+        "portfolio_weight": 25.0,
+        "linked_attribution": 1987.45,
+        "periods_analyzed": 13,
+        "avg_weekly_attribution": 152.88,
+        "weekly_attribution_volatility": 78.91
+      },
+      {
+        "asset": "AMZN",
+        "portfolio_weight": 15.0,
+        "linked_attribution": 1089.32,
+        "periods_analyzed": 13,
+        "avg_weekly_attribution": 83.79,
+        "weekly_attribution_volatility": 92.16
+      },
+      {
+        "asset": "TSLA",
+        "portfolio_weight": 15.0,
+        "linked_attribution": 1198.76,
+        "periods_analyzed": 13,
+        "avg_weekly_attribution": 92.21,
+        "weekly_attribution_volatility": 156.43
+      }
+    ],
+    "geometric_attribution": [
+      {
+        "asset": "AAPL",
+        "portfolio_weight": 25.0,
+        "geometric_portfolio_return": 44.89,
+        "geometric_benchmark_return": -60.12,
+        "geometric_excess_return": 104.01,
+        "weighted_contribution": 2600.25,
+        "volatility": 28.45,
+        "sharpe_ratio": 1.58,
+        "observations": 61
+      },
+      {
+        "asset": "GOOGL",
+        "portfolio_weight": 20.0,
+        "geometric_portfolio_return": 38.23,
+        "geometric_benchmark_return": -60.12,
+        "geometric_excess_return": 98.35,
+        "weighted_contribution": 1967.00,
+        "volatility": 31.67,
+        "sharpe_ratio": 1.21,
+        "observations": 61
+      },
+      {
+        "asset": "MSFT",
+        "portfolio_weight": 25.0,
+        "geometric_portfolio_return": 51.78,
+        "geometric_benchmark_return": -60.12,
+        "geometric_excess_return": 111.90,
+        "weighted_contribution": 2797.50,
+        "volatility": 26.89,
+        "sharpe_ratio": 1.93,
+        "observations": 61
+      },
+      {
+        "asset": "AMZN",
+        "portfolio_weight": 15.0,
+        "geometric_portfolio_return": 28.56,
+        "geometric_benchmark_return": -60.12,
+        "geometric_excess_return": 88.68,
+        "weighted_contribution": 1330.20,
+        "volatility": 35.12,
+        "sharpe_ratio": 0.81,
+        "observations": 61
+      },
+      {
+        "asset": "TSLA",
+        "portfolio_weight": 15.0,
+        "geometric_portfolio_return": 71.89,
+        "geometric_benchmark_return": -60.12,
+        "geometric_excess_return": 132.01,
+        "weighted_contribution": 1980.15,
+        "volatility": 45.67,
+        "sharpe_ratio": 1.57,
+        "observations": 61
+      }
+    ],
+    "summary": {
+      "total_brinson_fachler": 8560.10,
+      "total_carino_linking": 8119.95,
+      "total_geometric": 10675.10,
+      "average_attribution": 9118.38,
+      "attribution_consistency": 87.6
+    }
+  }

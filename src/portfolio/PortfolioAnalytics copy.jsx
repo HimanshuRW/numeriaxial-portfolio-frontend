@@ -209,7 +209,6 @@ const PortfolioAnalytics = () => {
               primaryLabel="Portfolio Value"
               showVolume={false}
               showComparison={false}
-              secondaryData={portfolioData.sp500_series}
             />
         </div>
 

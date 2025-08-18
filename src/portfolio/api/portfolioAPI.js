@@ -1,12 +1,111 @@
-// Portfolio API functions with dummy data
+// Enhanced Portfolio API functions with extensive dummy data
 export const portfolioAPI = {
   async getPortfolioAnalysis(tickers) {
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 1000));
     
+    // Helper function to generate realistic stock data
+    const generateStockData = (startValue, volatility, trend, days) => {
+      const data = [];
+      let currentValue = startValue;
+      
+      for (let i = 0; i < days; i++) {
+        const randomChange = (Math.random() - 0.5) * volatility;
+        const trendChange = trend / days;
+        currentValue = Math.max(currentValue + randomChange + trendChange, startValue * 0.3); // Prevent going too low
+        
+        data.push(currentValue);
+      }
+      
+      return data;
+    };
+
+    // Generate dates for different periods
+    const generateDates = (startDate, days, format = 'short') => {
+      const dates = [];
+      const start = new Date(startDate);
+      
+      for (let i = 0; i < days; i++) {
+        const currentDate = new Date(start);
+        currentDate.setDate(start.getDate() + i);
+        
+        if (format === 'short') {
+          dates.push(currentDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+        } else if (format === 'slant') {
+          dates.push(currentDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' }));
+        } else {
+          dates.push(currentDate.toISOString().split('T')[0]);
+        }
+      }
+      
+      return dates;
+    };
+
+    // Generate weekly dates
+    const generateWeeklyDates = (startDate, weeks) => {
+      const dates = [];
+      const start = new Date(startDate);
+      
+      for (let i = 0; i < weeks; i++) {
+        const currentDate = new Date(start);
+        currentDate.setDate(start.getDate() + (i * 7));
+        dates.push(currentDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' }));
+      }
+      
+      return dates;
+    };
+
+    // Generate monthly dates  
+    const generateMonthlyDates = (startDate, months) => {
+      const dates = [];
+      const start = new Date(startDate);
+      
+      for (let i = 0; i < months; i++) {
+        const currentDate = new Date(start);
+        currentDate.setMonth(start.getMonth() + i);
+        dates.push(currentDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }));
+      }
+      
+      return dates;
+    };
+
+    // Base portfolio and benchmark data
+    const portfolioBaseValue = 100000;
+    const benchmarkBaseValue = 100000;
+    
+    // Daily data (90 days)
+    const dailyDays = 90;
+    const dailyDates = generateDates('2024-05-15', dailyDays, 'slant');
+    const dailyPortfolioData = generateStockData(portfolioBaseValue, 2000, 25000, dailyDays);
+    const dailyBenchmarkData = generateStockData(benchmarkBaseValue, 1500, 12500, dailyDays);
+    
+    // Weekly data (52 weeks)
+    const weeklyWeeks = 52;
+    const weeklyDates = generateWeeklyDates('2023-08-01', weeklyWeeks);
+    const weeklyPortfolioData = generateStockData(portfolioBaseValue, 5000, 25000, weeklyWeeks);
+    const weeklyBenchmarkData = generateStockData(benchmarkBaseValue, 3500, 12500, weeklyWeeks);
+    
+    // Monthly data (24 months)
+    const monthlyMonths = 24;
+    const monthlyDates = generateMonthlyDates('2022-12-01', monthlyMonths);
+    const monthlyPortfolioData = generateStockData(portfolioBaseValue, 8000, 25000, monthlyMonths);
+    const monthlyBenchmarkData = generateStockData(benchmarkBaseValue, 6000, 12500, monthlyMonths);
+    
+    // Quarterly data (8 quarters)
+    const quarterlyQuarters = 8;
+    const quarterlyDates = ['Q1 \'23', 'Q2 \'23', 'Q3 \'23', 'Q4 \'23', 'Q1 \'24', 'Q2 \'24', 'Q3 \'24', 'Q4 \'24'];
+    const quarterlyPortfolioData = generateStockData(portfolioBaseValue, 12000, 25000, quarterlyQuarters);
+    const quarterlyBenchmarkData = generateStockData(benchmarkBaseValue, 9000, 12500, quarterlyQuarters);
+    
+    // Yearly data (5 years)
+    const yearlyYears = 5;
+    const yearlyDates = ['2020', '2021', '2022', '2023', '2024'];
+    const yearlyPortfolioData = generateStockData(80000, 15000, 45000, yearlyYears);
+    const yearlyBenchmarkData = generateStockData(85000, 12000, 27500, yearlyYears);
+
     return {
       statistics: {
-        totalValue: 125000,
+        totalValue: Math.round(dailyPortfolioData[dailyPortfolioData.length - 1]),
         totalReturn: 18.5,
         volatility: 15.2,
         sharpeRatio: 1.24,
@@ -109,44 +208,31 @@ export const portfolioAPI = {
         }
       ],
       chartData: {
-        daily: [
-          { date: 'Mon', portfolio: 124800, benchmark: 124200 },
-          { date: 'Tue', portfolio: 125200, benchmark: 124800 },
-          { date: 'Wed', portfolio: 124600, benchmark: 124400 },
-          { date: 'Thu', portfolio: 125800, benchmark: 125000 },
-          { date: 'Fri', portfolio: 125000, benchmark: 124600 }
-        ],
-        weekly: [
-          { date: 'W1', portfolio: 100000, benchmark: 100000 },
-          { date: 'W2', portfolio: 102100, benchmark: 101200 },
-          { date: 'W3', portfolio: 105800, benchmark: 103500 },
-          { date: 'W4', portfolio: 108200, benchmark: 105100 },
-          { date: 'W5', portfolio: 112500, benchmark: 107800 },
-          { date: 'W6', portfolio: 118400, benchmark: 110200 },
-          { date: 'W7', portfolio: 125000, benchmark: 112500 }
-        ],
-        monthly: [
-          { date: 'Jan', portfolio: 100000, benchmark: 100000 },
-          { date: 'Feb', portfolio: 102100, benchmark: 101200 },
-          { date: 'Mar', portfolio: 105800, benchmark: 103500 },
-          { date: 'Apr', portfolio: 108200, benchmark: 105100 },
-          { date: 'May', portfolio: 112500, benchmark: 107800 },
-          { date: 'Jun', portfolio: 118400, benchmark: 110200 },
-          { date: 'Jul', portfolio: 125000, benchmark: 112500 }
-        ],
-        quarterly: [
-          { date: 'Q1', portfolio: 100000, benchmark: 100000 },
-          { date: 'Q2', portfolio: 108200, benchmark: 105100 },
-          { date: 'Q3', portfolio: 118400, benchmark: 110200 },
-          { date: 'Q4', portfolio: 125000, benchmark: 112500 }
-        ],
-        yearly: [
-          { date: '2020', portfolio: 80000, benchmark: 85000 },
-          { date: '2021', portfolio: 95000, benchmark: 92000 },
-          { date: '2022', portfolio: 88000, benchmark: 87000 },
-          { date: '2023', portfolio: 110000, benchmark: 105000 },
-          { date: '2024', portfolio: 125000, benchmark: 112500 }
-        ]
+        daily: dailyDates.map((date, index) => ({
+          date,
+          portfolio: Math.round(dailyPortfolioData[index]),
+          benchmark: Math.round(dailyBenchmarkData[index])
+        })),
+        weekly: weeklyDates.map((date, index) => ({
+          date,
+          portfolio: Math.round(weeklyPortfolioData[index]),
+          benchmark: Math.round(weeklyBenchmarkData[index])
+        })),
+        monthly: monthlyDates.map((date, index) => ({
+          date,
+          portfolio: Math.round(monthlyPortfolioData[index]),
+          benchmark: Math.round(monthlyBenchmarkData[index])
+        })),
+        quarterly: quarterlyDates.map((date, index) => ({
+          date,
+          portfolio: Math.round(quarterlyPortfolioData[index]),
+          benchmark: Math.round(quarterlyBenchmarkData[index])
+        })),
+        yearly: yearlyDates.map((date, index) => ({
+          date,
+          portfolio: Math.round(yearlyPortfolioData[index]),
+          benchmark: Math.round(yearlyBenchmarkData[index])
+        }))
       },
       riskMetrics: [
         { metric: 'Value at Risk (95%)', value: '-$3,250', status: 'warning' },

@@ -1,0 +1,228 @@
+{
+    "portfolio_risk_metrics": {
+      "total_return_annualized": 15.59,
+      "volatility_annualized": 33.60,
+      "sharpe_ratio": 0.43,
+      "max_drawdown": -32.48,
+      "var_95": -2.98,
+      "skewness": 0.52,
+      "kurtosis": 15.09,
+      "observations": 151
+    },
+    "mctr_analysis": [
+      {
+        "asset": "AAPL",
+        "weight": 25.0,
+        "mctr": 0.3205,
+        "cctr": 0.0801,
+        "cctr_percentage": 23.77,
+        "risk_rank": 2
+      },
+      {
+        "asset": "MSFT",
+        "weight": 20.0,
+        "mctr": 0.2114,
+        "cctr": 0.0423,
+        "cctr_percentage": 12.54,
+        "risk_rank": 5
+      },
+      {
+        "asset": "GOOGL",
+        "weight": 20.0,
+        "mctr": 0.2677,
+        "cctr": 0.0535,
+        "cctr_percentage": 15.89,
+        "risk_rank": 4
+      },
+      {
+        "asset": "AMZN",
+        "weight": 18.0,
+        "mctr": 0.3135,
+        "cctr": 0.0564,
+        "cctr_percentage": 16.74,
+        "risk_rank": 3
+      },
+      {
+        "asset": "TSLA",
+        "weight": 17.0,
+        "mctr": 0.6159,
+        "cctr": 0.1047,
+        "cctr_percentage": 31.06,
+        "risk_rank": 1
+      }
+    ],
+    "component_var": [
+      {
+        "asset": "AAPL",
+        "weight": 25.0,
+        "marginal_var": -0.5271,
+        "component_var": -0.1318,
+        "component_var_percentage": -442.16,
+        "diversification_benefit": 15.23
+      },
+      {
+        "asset": "MSFT",
+        "weight": 20.0,
+        "marginal_var": -0.3477,
+        "component_var": -0.0695,
+        "component_var_percentage": -233.34,
+        "diversification_benefit": 18.67
+      },
+      {
+        "asset": "GOOGL",
+        "weight": 20.0,
+        "marginal_var": -0.4404,
+        "component_var": -0.0881,
+        "component_var_percentage": -295.51,
+        "diversification_benefit": 12.45
+      },
+      {
+        "asset": "AMZN",
+        "weight": 18.0,
+        "marginal_var": -0.5157,
+        "component_var": -0.0928,
+        "component_var_percentage": -311.43,
+        "diversification_benefit": 8.92
+      },
+      {
+        "asset": "TSLA",
+        "weight": 17.0,
+        "marginal_var": -1.0131,
+        "component_var": -0.1722,
+        "component_var_percentage": -577.85,
+        "diversification_benefit": 3.45
+      }
+    ],
+    "factor_risk_decomposition": [
+      {
+        "asset": "AAPL",
+        "weight": 25.0,
+        "alpha": -0.1,
+        "market_beta": 1.207,
+        "size_beta": -0.168,
+        "tech_beta": 0.218,
+        "systematic_risk": 11.12,
+        "idiosyncratic_risk": 3.59,
+        "r_squared": 0.76,
+        "factor_contributions": {
+          "market": 8.45,
+          "size": -1.23,
+          "tech": 1.56,
+          "other": 2.34
+        }
+      },
+      {
+        "asset": "MSFT",
+        "weight": 20.0,
+        "alpha": 0.11,
+        "market_beta": 0.829,
+        "size_beta": -0.214,
+        "tech_beta": -0.011,
+        "systematic_risk": 5.29,
+        "idiosyncratic_risk": 2.39,
+        "r_squared": 0.69,
+        "factor_contributions": {
+          "market": 4.98,
+          "size": -1.87,
+          "tech": -0.08,
+          "other": 2.26
+        }
+      },
+      {
+        "asset": "GOOGL",
+        "weight": 20.0,
+        "alpha": -0.01,
+        "market_beta": 0.964,
+        "size_beta": 0.383,
+        "tech_beta": 0.993,
+        "systematic_risk": 8.60,
+        "idiosyncratic_risk": 2.64,
+        "r_squared": 0.77,
+        "factor_contributions": {
+          "market": 5.78,
+          "size": 2.34,
+          "tech": 6.12,
+          "other": -5.64
+        }
+      },
+      {
+        "asset": "AMZN",
+        "weight": 18.0,
+        "alpha": -0.01,
+        "market_beta": 0.982,
+        "size_beta": -0.809,
+        "tech_beta": -1.303,
+        "systematic_risk": 12.95,
+        "idiosyncratic_risk": 0.66,
+        "r_squared": 0.95,
+        "factor_contributions": {
+          "market": 5.89,
+          "size": -4.95,
+          "tech": -8.02,
+          "other": 20.03
+        }
+      },
+      {
+        "asset": "TSLA",
+        "weight": 17.0,
+        "alpha": 0.01,
+        "market_beta": 1.018,
+        "size_beta": 0.809,
+        "tech_beta": 0.103,
+        "systematic_risk": 51.42,
+        "idiosyncratic_risk": 0.66,
+        "r_squared": 0.99,
+        "factor_contributions": {
+          "market": 6.11,
+          "size": 4.95,
+          "tech": 0.63,
+          "other": 39.73
+        }
+      }
+    ],
+    "correlation_matrix": [
+      ["AAPL", 1.000, 0.734, 0.689, 0.623, 0.456],
+      ["MSFT", 0.734, 1.000, 0.701, 0.598, 0.412],
+      ["GOOGL", 0.689, 0.701, 1.000, 0.645, 0.434],
+      ["AMZN", 0.623, 0.598, 0.645, 1.000, 0.389],
+      ["TSLA", 0.456, 0.412, 0.434, 0.389, 1.000]
+    ],
+    "risk_concentration": {
+      "herfindahl_index": 0.235,
+      "effective_number_of_assets": 4.26,
+      "concentration_ratio_top_3": 0.618,
+      "risk_diversification_ratio": 0.824
+    },
+    "scenario_analysis": {
+      "stress_test_results": {
+        "market_crash_10pct": {
+          "portfolio_impact": -8.45,
+          "worst_contributor": "TSLA",
+          "best_contributor": "MSFT"
+        },
+        "tech_sector_decline_20pct": {
+          "portfolio_impact": -12.67,
+          "worst_contributor": "GOOGL",
+          "best_contributor": "AMZN"
+        },
+        "interest_rate_spike_200bps": {
+          "portfolio_impact": -6.23,
+          "worst_contributor": "AAPL",
+          "best_contributor": "TSLA"
+        }
+      }
+    },
+    "var_decomposition": {
+      "portfolio_var_95": -2.98,
+      "individual_var_sum": -8.94,
+      "diversification_benefit": 5.96,
+      "diversification_ratio": 0.667,
+      "marginal_var_by_asset": {
+        "AAPL": -0.527,
+        "MSFT": -0.348,
+        "GOOGL": -0.440,
+        "AMZN": -0.516,
+        "TSLA": -1.013
+      }
+    }
+  }

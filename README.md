@@ -1,54 +1,53 @@
-# React + Vite + Tailwind CSS
+i am working on my app !
+which is working super now !
 
-This is a modern React application built with Vite and styled with Tailwind CSS.
+just one last issue see !
 
-## 🚀 Quick Start
+soo see i have this special component SortableTable !
 
-1. Install dependencies:
-```bash
-npm install
-```
+which we r using at many places.... many pages !
+i shared 2 pages as example too !
 
-2. Start the development server:
-```bash
-npm run dev
-```
+but but !
+we are using this component at many places !
 
-3. Open your browser and navigate to `http://localhost:5173`
+so any change ... !
+it should be dont only in the component !
+... not in any pages !
 
-## 📦 What's Included
+so update i want is.... !
+without disorting any fucntionalities... UI... postions... anything !
 
-- ⚡️ **Vite** - Lightning fast build tool
-- ⚛️ **React 18** - Latest React with concurrent features
-- 🎨 **Tailwind CSS** - Utility-first CSS framework
-- 🔧 **ESLint** - Code linting and formatting
-- 🏗️ **PostCSS** - CSS processing
-- 📱 **Responsive Design** - Mobile-first approach
+i wana place a pagination kinda thing !
 
-## 🛠️ Available Scripts
+so lets say !
+user select top : 20 !
+so now we will only show 20... and order by the sorter  !
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
+and by pagination i do not mean ... page 1,2,... !
 
-## 📁 Project Structure
+no no !
 
-```
-src/
-├── App.jsx          # Main App component
-├── App.css          # Custom CSS (optional)
-├── index.css        # Tailwind imports
-└── main.jsx         # React entry point
-```
+only first top 20 based on sorted !
 
-## 🎨 Customization
+like lest say !
+a certain column as sorter and right now assending !
+so show top 20 sorted in assecding order by that column !
 
-- Edit `tailwind.config.js` to customize Tailwind theme
-- Modify `src/App.jsx` to build your application
-- Add new components in the `src/` directory
+if we toggle the sort !
+now show top 20 in desecding order by that column !
+so some values might be missing in first case (as they will go in last and we only show top 20)
+and they can be seen in second case !
+so thats okay !
 
-Happy coding! 🎉
-just correct this page
+so two things !
+impliment this !
+user can choose btwn 5,10,20,30,50, all ! 
 
-and make corrected page of this is latest version of  PerformancePage in my project
+and that also without breaking the UI 
+or ... uk
+still keeping it ass good as it always was !
+
+and only only update the SortableTable.jsx !
+
+-----------------------------------------------------------------
