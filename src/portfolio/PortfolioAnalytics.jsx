@@ -25,7 +25,7 @@ const PortfolioAnalytics = () => {
     const fetchPortfolioData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:5173/portfolio_overview.json');
+        const response = await fetch('/portfolio_overview.json');
         const data = await response.json();
         setPortfolioData(data);
       } catch (error) {

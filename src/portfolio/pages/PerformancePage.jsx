@@ -23,10 +23,10 @@ const PerformancePage = ({ portfolioData, onStockClick }) => {
         
         // Fetch multiple performance datasets
         const [returnBasedResponse, bottomUpResponse, factorBasedResponse, performanceBasedResponse] = await Promise.all([
-          fetch('http://localhost:5173/return_based_attribution.json'),
-          fetch('http://localhost:5173/bottom_up_attribution.json'),
-          fetch('http://localhost:5173/factor_based_attribution.json'),
-          fetch('http://localhost:5173/performance_based_analysis.json')
+          fetch('/return_based_attribution.json'),
+          fetch('/bottom_up_attribution.json'),
+          fetch('/factor_based_attribution.json'),
+          fetch('/performance_based_analysis.json')
         ]);
 
         const returnBased = await returnBasedResponse.json();
