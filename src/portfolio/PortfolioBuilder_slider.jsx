@@ -15,19 +15,6 @@ const PortfolioBuilder = ({ onNavigate }) => {
   const [portfolioName, setPortfolioName] = useState('');
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const [isNewPortfolio, setIsNewPortfolio] = useState(true);
-  const [selectedModels, setSelectedModels] = useState({});
-
-  // Available models and modes
-  const models = ['A2C', 'PPO', 'DDPG', 'TRPO', 'SAC', 'TD3'];
-  const modes = ['Conservative', 'Balanced', 'Aggressive'];
-
-  const steps = [
-    { title: 'Portfolio Selection', subtitle: 'Choose existing or create new' },
-    { title: 'Portfolio Details', subtitle: 'Review and configure holdings' },
-    { title: 'Analysis Period', subtitle: 'Select date range' },
-    { title: 'Model Selection', subtitle: 'Choose AI models and modes' },
-    { title: 'Summary', subtitle: 'Review and analyze' }
-  ];
 
   // Mock data for saved portfolios
   const savedPortfolios = [
@@ -44,6 +31,13 @@ const PortfolioBuilder = ({ onNavigate }) => {
     'MA': 385.45, 'DIS': 95.25, 'PYPL': 58.75, 'BAC': 32.15, 'ADBE': 485.60,
     'KO': 58.25, 'MCD': 285.40, 'CRM': 245.80, 'SQ': 78.90, 'ROKU': 65.40, 'ZM': 68.50
   };
+
+  const steps = [
+    { title: 'Portfolio Selection', subtitle: 'Choose existing or create new' },
+    { title: 'Portfolio Details', subtitle: 'Review and configure holdings' },
+    { title: 'Analysis Period', subtitle: 'Select date range' },
+    { title: 'Summary', subtitle: 'Review and analyze' }
+  ];
 
   const goToNextStep = () => {
     if (currentStep < steps.length - 1) {
@@ -194,28 +188,11 @@ const PortfolioBuilder = ({ onNavigate }) => {
     }
   };
 
-  const handleModelModeSelection = (model, mode) => {
-    setSelectedModels(prev => {
-      const newSelection = { ...prev };
-      
-      // If clicking the same mode that's already selected, uncheck it
-      if (newSelection[model] === mode) {
-        delete newSelection[model];
-      } else {
-        // Otherwise, set the new mode for this model
-        newSelection[model] = mode;
-      }
-      
-      return newSelection;
-    });
-  };
-
   const analyzePortfolio = () => {
     const portfolioData = {
       tickers: selectedTickers,
       holdings: holdings,
       dateRange: dateRange,
-      selectedModels: selectedModels,
       hasHoldings: Object.keys(holdings).length > 0
     };
     
@@ -468,132 +445,7 @@ const PortfolioBuilder = ({ onNavigate }) => {
     </div>
   );
 
-  // Step 3: Model Selection
-  const renderModelSelection = () => (
-    <div className="space-y-8">
-      <div className="text-center">
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-          AI Model Selection
-        </h2>
-        <p className="text-gray-600 dark:text-gray-400">
-          Choose the reinforcement learning models and their operating modes
-        </p>
-      </div>
-
-      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-        <div className="px-6 py-4 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
-          <h3 className="font-medium text-gray-900 dark:text-white">
-            Available Models ({Object.keys(selectedModels).length} selected)
-          </h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            Select one mode per model. Minimum 1 model required.
-          </p>
-        </div>
-        
-        <div className="divide-y divide-gray-200 dark:divide-gray-700">
-          {models.map((model) => (
-            <div key={model} className="p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <h4 className="font-semibold text-lg text-gray-900 dark:text-white mb-1">
-                    {model}
-                  </h4>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    {model === 'A2C' && 'Advantage Actor-Critic - Fast convergence with stable performance'}
-                    {model === 'PPO' && 'Proximal Policy Optimization - Balanced exploration and exploitation'}
-                    {model === 'DDPG' && 'Deep Deterministic Policy Gradient - Continuous action spaces'}
-                    {model === 'TRPO' && 'Trust Region Policy Optimization - Conservative policy updates'}
-                    {model === 'SAC' && 'Soft Actor-Critic - Maximum entropy reinforcement learning'}
-                    {model === 'TD3' && 'Twin Delayed Deep Deterministic - Improved DDPG variant'}
-                  </p>
-                </div>
-                
-                <div className="flex items-center space-x-6 ml-8">
-                  {modes.map((mode) => (
-                    <label 
-                      key={mode}
-                      className="flex items-center space-x-2 cursor-pointer group"
-                    >
-                      <div className="relative">
-                        <input
-                          type="checkbox"
-                          checked={selectedModels[model] === mode}
-                          onChange={() => handleModelModeSelection(model, mode)}
-                          className="sr-only"
-                        />
-                        <div className={`w-5 h-5 border-2 rounded transition-all duration-200 ${
-                          selectedModels[model] === mode
-                            ? mode === 'Conservative' 
-                              ? 'bg-blue-600 border-blue-600' 
-                              : mode === 'Balanced'
-                              ? 'bg-green-600 border-green-600'
-                              : 'bg-red-600 border-red-600'
-                            : 'border-gray-300 dark:border-gray-600 group-hover:border-gray-400 dark:group-hover:border-gray-500'
-                        }`}>
-                          {selectedModels[model] === mode && (
-                            <svg className="w-3 h-3 text-white absolute top-0.5 left-0.5" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                            </svg>
-                          )}
-                        </div>
-                      </div>
-                      <span className={`text-sm font-medium transition-colors ${
-                        selectedModels[model] === mode
-                          ? mode === 'Conservative'
-                            ? 'text-blue-700 dark:text-blue-300'
-                            : mode === 'Balanced'
-                            ? 'text-green-700 dark:text-green-300'
-                            : 'text-red-700 dark:text-red-300'
-                          : 'text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-200'
-                      }`}>
-                        {mode}
-                      </span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        
-        {Object.keys(selectedModels).length > 0 && (
-          <div className="px-6 py-4 bg-blue-50 dark:bg-blue-900/20 border-t border-blue-200 dark:border-blue-800">
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-blue-900 dark:text-blue-100">
-                Selected Models: {Object.entries(selectedModels).map(([model, mode]) => `${model} (${mode})`).join(', ')}
-              </span>
-              <button
-                onClick={() => setSelectedModels({})}
-                className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 font-medium"
-              >
-                Clear All
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
-        <div className="flex items-start space-x-3">
-          <div className="w-5 h-5 text-amber-600 dark:text-amber-400 mt-0.5">
-            <svg fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-            </svg>
-          </div>
-          <div>
-            <h4 className="font-medium text-amber-900 dark:text-amber-100 mb-1">Model Operating Modes</h4>
-            <div className="text-sm text-amber-800 dark:text-amber-200 space-y-1">
-              <p><strong>Conservative:</strong> Lower risk, stable returns, reduced volatility</p>
-              <p><strong>Balanced:</strong> Moderate risk-reward balance, diversified approach</p>
-              <p><strong>Aggressive:</strong> Higher risk tolerance, maximum return potential</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  // Step 4: Summary
+  // Step 3: Summary
   const renderSummary = () => (
     <div className="space-y-8">
       <div className="text-center">
@@ -643,55 +495,20 @@ const PortfolioBuilder = ({ onNavigate }) => {
         <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-orange-600 dark:text-orange-400 text-sm font-medium">AI Models</p>
-              <p className="text-2xl font-bold text-orange-900 dark:text-orange-100">
-                {Object.keys(selectedModels).length}
+              <p className="text-orange-600 dark:text-orange-400 text-sm font-medium">Period</p>
+              <p className="text-sm font-bold text-orange-900 dark:text-orange-100">
+                {dateRange.from} to<br/>{dateRange.to}
               </p>
             </div>
             <Calendar className="h-8 w-8 text-orange-500" />
           </div>
         </div>
-
-        <div className="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 rounded-lg p-4 md:col-span-2 lg:col-span-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-indigo-600 dark:text-indigo-400 text-sm font-medium">Analysis Period</p>
-              <p className="text-lg font-bold text-indigo-900 dark:text-indigo-100">
-                {dateRange.from} to {dateRange.to}
-              </p>
-            </div>
-            <FileText className="h-8 w-8 text-indigo-500" />
-          </div>
-        </div>
       </div>
-
-      {/* Selected Models Summary */}
-      {Object.keys(selectedModels).length > 0 && (
-        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
-          <h4 className="font-medium text-gray-900 dark:text-white mb-4">Selected AI Models</h4>
-          <div className="grid gap-3">
-            {Object.entries(selectedModels).map(([model, mode]) => (
-              <div key={model} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <span className="font-medium text-gray-900 dark:text-white">{model}</span>
-                <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  mode === 'Conservative' 
-                    ? 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200'
-                    : mode === 'Balanced'
-                    ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200'
-                    : 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200'
-                }`}>
-                  {mode}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       <div className="text-center">
         <button 
           onClick={analyzePortfolio}
-          disabled={selectedTickers.length === 0 || !dateRange.from || !dateRange.to || Object.keys(selectedModels).length === 0}
+          disabled={selectedTickers.length === 0 || !dateRange.from || !dateRange.to}
           className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-lg font-medium rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <Activity className="h-6 w-6 mr-2" />
@@ -707,8 +524,7 @@ const PortfolioBuilder = ({ onNavigate }) => {
       case 0: return renderPortfolioSelection();
       case 1: return renderPortfolioDetails();
       case 2: return renderDateRange();
-      case 3: return renderModelSelection();
-      case 4: return renderSummary();
+      case 3: return renderSummary();
       default: return renderPortfolioSelection();
     }
   };
@@ -718,8 +534,7 @@ const PortfolioBuilder = ({ onNavigate }) => {
       case 0: return selectedTickers.length > 0;
       case 1: return selectedTickers.length > 0;
       case 2: return dateRange.from && dateRange.to;
-      case 3: return Object.keys(selectedModels).length > 0;
-      case 4: return true;
+      case 3: return true;
       default: return false;
     }
   };
