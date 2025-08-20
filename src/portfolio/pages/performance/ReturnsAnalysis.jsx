@@ -1,6 +1,6 @@
 import { Calendar, TrendingUp, BarChart2, Target,AlertTriangle, Award } from 'lucide-react';
 import { useTheme } from '../../../ThemeContext';
-import TradingViewChart from '../../components/TradingViewChart';
+import ReturnsBarsChart from '../../components/ReturnsBarChart';
 import SortableTable from '../../components/SortableTable';
 import MetricCard from '../../components/MetricCard';
 import RollingMetricChart from '../../components/RollingMetricChart';
@@ -16,14 +16,19 @@ const ReturnsAnalysis = ({ data, onStockClick }) => {
     if (!returnBased?.time_series_data) return [];
     
     const { dates, portfolio_returns } = returnBased.time_series_data;
-    return dates.map((date, index) => ({
+    const portfolio_returns_values = dates.map((date, index) => ({
       date,
-      close: (portfolio_returns[index] * 100), // Convert to percentage
-      open: (portfolio_returns[index] * 100) + (Math.random() - 0.5) * 0.5,
-      high: (portfolio_returns[index] * 100) + Math.random() * 0.8,
-      low: (portfolio_returns[index] * 100) - Math.random() * 0.8,
-      volume: Math.floor(Math.random() * 1000000) + 500000
+      value: (portfolio_returns[index] * 100)
     }));
+    const sp_returns_values = dates.map((date, index) => ({
+      date,
+      value: (Math.random()- 0.5) * 5
+    }));
+
+    return {
+      primaryData: portfolio_returns_values,
+      secondaryData: sp_returns_values,
+    }
   }, [returnBased]);
 
   // Rolling performance metrics
@@ -76,10 +81,19 @@ const ReturnsAnalysis = ({ data, onStockClick }) => {
           }`}>Portfolio Returns Over Time</h3>
         </div>
         <div className="h-80">
-          <TradingViewChart
+          {/* <TradingViewChart
             data={returnsChartData}
             primaryLabel="Returns (%)"
             showVolume={false}
+            showComparison={false}
+          /> */}
+          <ReturnsBarsChart
+            data={returnsChartData.primaryData}
+            secondaryData={returnsChartData.secondaryData}
+            primaryLabel="Portfolio Returns"
+            secondaryLabel="Benchmark Returns"
+            // baselineMode_input="zero" // or "lowest"
+            baselineMode_input="lowest" // or "lowest"
             showComparison={false}
           />
         </div>
