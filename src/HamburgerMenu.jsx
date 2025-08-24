@@ -84,9 +84,18 @@ const HamburgerMenu = ({ currentPage, onNavigate }) => {
         {/* Header */}
         <div className={`p-6 border-b ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
           <div className="flex items-center space-x-3 mb-4">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
+            {/* <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
               <TrendingUp className="w-6 h-6 text-white" />
-            </div>
+            </div> */}
+            <div className="w-10 rounded-lg flex items-center justify-center mr-3">
+                <img 
+                  src="/logo.png" 
+                  alt="Numeriaxial Logo" 
+                  // className="w-10 h-10 object-contain rounded-lg"
+                  // background white 
+                  className={`object-contain bg-white`}
+                />
+              </div>
             <h2 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
               Numeriaxial
             </h2>

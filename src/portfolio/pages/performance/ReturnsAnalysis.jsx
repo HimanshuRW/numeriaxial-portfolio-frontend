@@ -92,8 +92,7 @@ const ReturnsAnalysis = ({ data, onStockClick }) => {
             secondaryData={returnsChartData.secondaryData}
             primaryLabel="Portfolio Returns"
             secondaryLabel="Benchmark Returns"
-            // baselineMode_input="zero" // or "lowest"
-            baselineMode_input="lowest" // or "lowest"
+            baselineMode_input="zero" // or "lowest"
             showComparison={false}
           />
         </div>
@@ -101,13 +100,13 @@ const ReturnsAnalysis = ({ data, onStockClick }) => {
 
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Key Performance Metrics - 2x2 Cards */}
-        <div className={`rounded-xl shadow-lg p-6 transition-colors duration-300 ${
+        <div className={`rounded-xl shadow-lg p-6 pb-8 transition-colors duration-300 ${
           isDark ? 'bg-gray-800' : 'bg-white'
         }`}>
           <h3 className={`text-lg font-semibold mb-4 transition-colors duration-300 ${
             isDark ? 'text-white' : 'text-gray-900'
           }`}>Key Performance Metrics</h3>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 pt-3">
             <MetricCard
               title="Annualized Return"
               value={performanceBased?.portfolio_level_performance?.annualized_return || 0}

@@ -1,3 +1,4 @@
+// not in use rn !
 import React from 'react';
 import { useTheme } from '../../ThemeContext';
 
@@ -17,15 +18,13 @@ const MetricCard = ({
   trendValue = null
 }) => {
   const { isDark } = useTheme();
-  
-  // Boolean to control borders - change this to see what works better
-  const showBorders = true;
 
   // Color configurations
   const colorConfig = {
     blue: {
       gradient: 'from-blue-50 to-blue-100',
       borderColor: 'border-blue-500',
+      iconBg: isDark ? 'bg-blue-500' : 'bg-blue-200',
       titleColor: isDark ? 'text-blue-300' : 'text-blue-700',
       valueColor: isDark ? 'text-blue-100' : 'text-blue-900',
       subtitleColor: isDark ? 'text-blue-400' : 'text-blue-600'
@@ -33,6 +32,7 @@ const MetricCard = ({
     green: {
       gradient: 'from-green-50 to-green-100',
       borderColor: 'border-green-500',
+      iconBg: isDark ? 'bg-green-500' : 'bg-green-200',
       titleColor: isDark ? 'text-green-300' : 'text-green-700',
       valueColor: isDark ? 'text-green-100' : 'text-green-900',
       subtitleColor: isDark ? 'text-green-400' : 'text-green-600'
@@ -40,6 +40,7 @@ const MetricCard = ({
     red: {
       gradient: 'from-red-50 to-red-100',
       borderColor: 'border-red-500',
+      iconBg: isDark ? 'bg-red-500' : 'bg-red-200',
       titleColor: isDark ? 'text-red-300' : 'text-red-700',
       valueColor: isDark ? 'text-red-100' : 'text-red-900',
       subtitleColor: isDark ? 'text-red-400' : 'text-red-600'
@@ -47,6 +48,7 @@ const MetricCard = ({
     orange: {
       gradient: 'from-orange-50 to-orange-100',
       borderColor: 'border-orange-500',
+      iconBg: isDark ? 'bg-orange-500' : 'bg-orange-200',
       titleColor: isDark ? 'text-orange-300' : 'text-orange-700',
       valueColor: isDark ? 'text-orange-100' : 'text-orange-900',
       subtitleColor: isDark ? 'text-orange-400' : 'text-orange-600'
@@ -54,6 +56,7 @@ const MetricCard = ({
     purple: {
       gradient: 'from-purple-50 to-purple-100',
       borderColor: 'border-purple-500',
+      iconBg: isDark ? 'bg-purple-500' : 'bg-purple-200',
       titleColor: isDark ? 'text-purple-300' : 'text-purple-700',
       valueColor: isDark ? 'text-purple-100' : 'text-purple-900',
       subtitleColor: isDark ? 'text-purple-400' : 'text-purple-600'
@@ -61,6 +64,7 @@ const MetricCard = ({
     gray: {
       gradient: 'from-gray-50 to-gray-100',
       borderColor: 'border-gray-500',
+      iconBg: isDark ? 'bg-gray-500' : 'bg-gray-200',
       titleColor: isDark ? 'text-gray-300' : 'text-gray-700',
       valueColor: isDark ? 'text-gray-100' : 'text-gray-900',
       subtitleColor: isDark ? 'text-gray-400' : 'text-gray-600'
@@ -71,23 +75,30 @@ const MetricCard = ({
   const sizeConfig = {
     small: {
       padding: 'p-4',
-      // bigger
-      // titleSize: 'text-sm',
-      titleSize: 'text-l',
+      iconSize: 'w-5 h-5',
+      iconContainer: 'w-10 h-10',
+      titleSize: 'text-sm',
       valueSize: 'text-2xl',
-      subtitleSize: 'text-xs'
+      subtitleSize: 'text-xs',
+      emoji: 'text-xl'
     },
     medium: {
       padding: 'p-6',
-      titleSize: 'text-l',
+      iconSize: 'w-6 h-6',
+      iconContainer: 'w-12 h-12',
+      titleSize: 'text-sm',
       valueSize: 'text-3xl',
-      subtitleSize: 'text-sm'
+      subtitleSize: 'text-sm',
+      emoji: 'text-2xl'
     },
     large: {
       padding: 'p-8',
+      iconSize: 'w-8 h-8',
+      iconContainer: 'w-16 h-16',
       titleSize: 'text-base',
       valueSize: 'text-4xl',
-      subtitleSize: 'text-base'
+      subtitleSize: 'text-base',
+      emoji: 'text-3xl'
     }
   };
 
@@ -96,7 +107,7 @@ const MetricCard = ({
 
   const cardClasses = `
     ${isDark 
-      ? `bg-gray-800 ${showBorders ? `border ${colors.borderColor}` : ''}` 
+      ? `bg-gray-800 border ${colors.borderColor}` 
       : gradient 
         ? `bg-gradient-to-br ${colors.gradient}` 
         : 'bg-white'
@@ -124,8 +135,18 @@ const MetricCard = ({
 
   return (
     <div className={cardClasses} onClick={onClick}>
+      {/* Header with Icon/Emoji */}
+      <div className="flex items-center justify-between mb-3">
+        <div className={`${sizes.iconContainer} rounded-lg flex items-center justify-center transition-colors duration-300 ${colors.iconBg}`}>
+          {Icon ? (
+            <Icon className={`${sizes.iconSize} transition-colors duration-300 ${isDark ? 'text-white' : `text-${color}-600`}`} />
+          ) : null}
+        </div>
+        {emoji && <span className={sizes.emoji}>{emoji}</span>}
+      </div>
+
       {/* Title */}
-      <h3 className={`${sizes.titleSize} font-medium mb-3 transition-colors duration-300 ${colors.titleColor}`}>
+      <h3 className={`${sizes.titleSize} font-medium mb-1 transition-colors duration-300 ${colors.titleColor}`}>
         {title}
       </h3>
 

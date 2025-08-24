@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart3, TrendingUp, PieChart, Shield, Calculator, Menu, X, Home, ArrowUp, ArrowDown, DollarSign, Target, BarChart, TrendingDown, Activity, Star } from 'lucide-react';
-import MetricCard from './components/MetricCard';
 import SortableTable from './components/SortableTable';
 import LoadingState from './components/LoadingState';
-import TradingViewChart from './components/TradingViewChart';
+// import TradingViewChart from './components/TradingViewChart';
+import TradingViewChart from './components/TradingViewChart_stock';
 
 // Import existing pages
 import AllocationPage from './pages/AllocationPage';
@@ -119,10 +119,11 @@ const PortfolioAnalytics = () => {
 
   const navigationItems = [
     { id: 'overview', label: 'Overview', icon: Home, color: 'blue' },
-    { id: 'performance', label: 'Performance', icon: TrendingUp, color: 'green' },
-    { id: 'allocation', label: 'Allocation', icon: PieChart, color: 'purple' },
-    { id: 'risk', label: 'Risk Analysis', icon: Shield, color: 'red' },
-    { id: 'statistics', label: 'Statistics', icon: Calculator, color: 'orange' }
+    { id: 'performance', label: 'Performance & Attribution', icon: TrendingUp, color: 'green' },
+    { id: 'allocation', label: 'Allocation & Optimization', icon: PieChart, color: 'purple' },
+    { id: 'risk', label: 'Risk Analysis & Hedging', icon: Shield, color: 'red' },
+    { id: 'statistics', label: 'Statistics', icon: Calculator, color: 'orange' },
+    { id: 'yoy', label: 'Predictive Analysis & Outlook', icon: Calculator, color: 'blue' }
   ];
 
   const handleStockClick = (ticker) => {
@@ -138,80 +139,15 @@ const PortfolioAnalytics = () => {
 
     return (
       <div className="space-y-6">
-        {/* Portfolio Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
-          <MetricCard
-  title="Total Portfolio Value"
-  value={portfolio_summary.total_portfolio_value}
-  valueFormatter={(val) => `${(val / 1000000).toFixed(2)}M`}
-  icon={DollarSign}
-  emoji="💰"
-  color="blue"
-  trend={portfolio_summary.todays_pnl_percent > 0 ? 'up' : 'down'}
-  trendValue={`${portfolio_summary.todays_pnl_percent > 0 ? '+' : ''}${portfolio_summary.todays_pnl_percent}%`}
-  size="small"
-/>
-
-<MetricCard
-  title="Total Return"
-  value={basic_performance_metrics.total_portfolio_return}
-  valueFormatter={(val) => `${val > 0 ? '+' : ''}${val}%`}
-  icon={Target}
-  emoji="🎯"
-  color={basic_performance_metrics.total_portfolio_return >= 0 ? 'green' : 'red'}
-  size="small"
-/>
-
-<MetricCard
-  title="Sharpe Ratio"
-  value={basic_performance_metrics.sharpe_ratio}
-  icon={BarChart}
-  emoji="📊"
-  color="purple"
-  size="small"
-/>
-
-<MetricCard
-  title="Max Drawdown"
-  value={portfolioData.quick_stats.maximum_drawdown}
-  valueFormatter={(val) => `${val}%`}
-  icon={TrendingDown}
-  emoji="📉"
-  color="red"
-  size="small"
-/>
-
-<MetricCard
-  title="Information Ratio"
-  value={portfolioData.quick_stats.portfolio_volatility * 0.1}
-  valueFormatter={(val) => val.toFixed(2)}
-  icon={Activity}
-  emoji="📈"
-  color="blue"
-  size="small"
-/>
-
-<MetricCard
-  title="Alpha"
-  value={5.2}
-  valueFormatter={(val) => `+${val}%`}
-  icon={Star}
-  emoji="⭐"
-  color="orange"
-  size="small"
-/>
-        </div>
 
         {/* Portfolio Valuation Chart */}
-        <div className="h-96 mb-200">
-            <TradingViewChart
-              data={chartData}
-              primaryLabel="Portfolio Value"
-              showVolume={false}
-              showComparison={false}
-              secondaryData={portfolioData.sp500_series}
-            />
-        </div>
+        <TradingViewChart
+          data={chartData}
+          primaryLabel="Portfolio Value"
+          showVolume={false}
+          showComparison={false}
+          secondaryData={portfolioData.sp500_series}
+        />
 
         <div className="grid lg:grid-cols-2 gap-6">
           {/* Daily Movers */}
@@ -267,49 +203,55 @@ const PortfolioAnalytics = () => {
           </div>
 
           {/* Key Metrics */}
+          {/* Portfolio News */}
           <div className={`rounded-xl shadow-lg p-6 transition-colors duration-300 ${
             isDark ? 'bg-gray-800' : 'bg-white'
           }`}>
             <h3 className={`text-lg font-semibold mb-4 transition-colors duration-300 ${
               isDark ? 'text-white' : 'text-gray-900'
-            }`}>Key Metrics</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div className={`text-center p-3 rounded-lg transition-colors duration-300 ${
-                isDark ? 'bg-gray-700' : 'bg-gray-50'
+            }`}>Portfolio News</h3>
+            <div className="space-y-3">
+              {/* Mock news items - you can replace with real news data later */}
+              <div className={`p-3 rounded-lg border-l-4 border-blue-500 transition-colors duration-300 ${
+                isDark ? 'bg-gray-700' : 'bg-blue-50'
               }`}>
-                <div className={`text-lg font-bold transition-colors duration-300 ${
+                <div className={`font-medium text-sm transition-colors duration-300 ${
                   isDark ? 'text-white' : 'text-gray-900'
-                }`}>{basic_performance_metrics.portfolio_beta}</div>
-                <div className={`text-sm transition-colors duration-300 ${
+                }`}>Apple Inc. Reports Strong Q4 Earnings</div>
+                <div className={`text-xs mt-1 transition-colors duration-300 ${
                   isDark ? 'text-gray-400' : 'text-gray-600'
-                }`}>Beta</div>
+                }`}>2 hours ago • MarketWatch</div>
               </div>
-              <div className={`text-center p-3 rounded-lg transition-colors duration-300 ${
-                isDark ? 'bg-gray-700' : 'bg-gray-50'
+              
+              <div className={`p-3 rounded-lg border-l-4 border-green-500 transition-colors duration-300 ${
+                isDark ? 'bg-gray-700' : 'bg-green-50'
               }`}>
-                <div className={`text-lg font-bold transition-colors duration-300 ${
+                <div className={`font-medium text-sm transition-colors duration-300 ${
                   isDark ? 'text-white' : 'text-gray-900'
-                }`}>{basic_performance_metrics.sharpe_ratio}</div>
-                <div className={`text-sm transition-colors duration-300 ${
+                }`}>Microsoft Announces New AI Partnership</div>
+                <div className={`text-xs mt-1 transition-colors duration-300 ${
                   isDark ? 'text-gray-400' : 'text-gray-600'
-                }`}>Sharpe Ratio</div>
+                }`}>4 hours ago • TechCrunch</div>
               </div>
-              <div className={`text-center p-3 rounded-lg transition-colors duration-300 ${
-                isDark ? 'bg-gray-700' : 'bg-gray-50'
+              
+              <div className={`p-3 rounded-lg border-l-4 border-orange-500 transition-colors duration-300 ${
+                isDark ? 'bg-gray-700' : 'bg-orange-50'
               }`}>
-                <div className="text-lg font-bold text-green-600">{basic_performance_metrics.best_performing_asset.symbol}</div>
-                <div className={`text-sm transition-colors duration-300 ${
+                <div className={`font-medium text-sm transition-colors duration-300 ${
+                  isDark ? 'text-white' : 'text-gray-900'
+                }`}>Tesla Stock Rises on Production Updates</div>
+                <div className={`text-xs mt-1 transition-colors duration-300 ${
                   isDark ? 'text-gray-400' : 'text-gray-600'
-                }`}>Best Asset</div>
+                }`}>6 hours ago • Reuters</div>
               </div>
-              <div className={`text-center p-3 rounded-lg transition-colors duration-300 ${
-                isDark ? 'bg-gray-700' : 'bg-gray-50'
+              
+              <button className={`w-full mt-3 py-2 px-4 rounded-lg text-sm font-medium transition-colors duration-300 ${
+                isDark 
+                  ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' 
+                  : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
               }`}>
-                <div className="text-lg font-bold text-red-600">{basic_performance_metrics.most_volatile_asset.symbol}</div>
-                <div className={`text-sm transition-colors duration-300 ${
-                  isDark ? 'text-gray-400' : 'text-gray-600'
-                }`}>Most Volatile</div>
-              </div>
+                View All News
+              </button>
             </div>
           </div>
         </div>
@@ -433,7 +375,7 @@ const PortfolioAnalytics = () => {
                     }`}
                   >
                     <Icon className={`w-5 h-5 ${isActive ? `text-${item.color}-600` : ''}`} />
-                    <span className="font-medium">{item.label}</span>
+                    <span className="font-medium text-left">{item.label}</span>
                   </button>
                 );
               })}

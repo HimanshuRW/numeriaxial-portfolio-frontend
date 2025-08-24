@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { TrendingUp, Activity, Brain, ArrowRight, Search } from 'lucide-react';
 import { ThemeProvider, useTheme } from './ThemeContext';
 import HamburgerMenu from './HamburgerMenu';
-import PortfolioBuilder from './portfolio/PortfolioBuilder';
+// import PortfolioBuilder from './portfolio/PortfolioBuilder';
+import PortfolioBuilder from './portfolio/PortfolioBuilder-cleaned';
 import PortfolioAnalytics from './portfolio/PortfolioAnalytics';
 import StockAnalytics from './stock_analytics/StockAnalytics';
 
@@ -29,11 +30,17 @@ const AppContent = () => {
       <header className={`shadow-sm transition-colors duration-300 ${
         isDark ? 'bg-gray-800 border-b border-gray-700' : 'bg-white'
       }`}>
-        <div className="max-w-7xl mx-auto px-4 py-6 ml-20">
+        <div className="max-w-7xl mx-auto px-4 py-4 ml-20">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center mr-3">
-                <TrendingUp className="h-6 w-6 text-white" />
+              <div className="w-12 rounded-lg flex items-center justify-center mr-3">
+                <img 
+                  src="/logo.png" 
+                  alt="Numeriaxial Logo" 
+                  // className="w-10 h-10 object-contain rounded-lg"
+                  // background white 
+                  className={`object-contain bg-white`}
+                />
               </div>
               <h1 className={`text-3xl font-bold transition-colors duration-300 ${
                 isDark ? 'text-white' : 'text-gray-900'

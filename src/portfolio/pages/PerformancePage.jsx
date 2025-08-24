@@ -59,19 +59,19 @@ const PerformancePage = ({ portfolioData, onStockClick }) => {
     },
     {
       id: 'attribution',
-      label: 'Attribution',
+      label: 'Attribution Analysis',
       icon: Target,
       description: 'Bottom-up performance attribution'
     },
     {
       id: 'factors',
-      label: 'Factor Analysis',
+      label: 'Attribution Based Factors',
       icon: Layers,
       description: 'Factor-based attribution and exposure'
     },
     {
       id: 'risk-perf',
-      label: 'Risk Analytics',
+      label: 'Attribution Based Risk',
       icon: BarChart3,
       description: 'Risk-adjusted performance metrics'
     }
@@ -101,11 +101,21 @@ const PerformancePage = ({ portfolioData, onStockClick }) => {
         return <ReturnsAnalysis data={performanceData} onStockClick={onStockClick} />;
     }
   };
-
   return (
-    <div className="space-y-5">
-      {/* Sub Navigation - Moved to top */}
-      <div className={`px-6 pt-3 transition-colors duration-300 ${
+    <div>
+      {/* Main Page Heading */}
+      <div className={`px-6 pt-6 pb-4 transition-colors duration-300 ${
+        isDark ? 'bg-gray-800' : 'bg-white'
+      }`}>
+        <h1 className={`text-2xl font-bold transition-colors duration-300 ${
+          isDark ? 'text-white' : 'text-gray-900'
+        }`}>
+          Performance & Attribution
+        </h1>
+      </div>
+
+      {/* Sub Navigation */}
+      <div className={`px-6 transition-colors duration-300 ${
         isDark ? 'bg-gray-800' : 'bg-white'
       }`}>
         <div className={`border-b mb-6 sticky top-0 z-10 transition-colors duration-300 ${
