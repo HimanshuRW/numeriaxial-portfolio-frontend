@@ -7,6 +7,8 @@ import RollingMetricChart from '../../components/RollingMetricChart';
 import ReturnsDistributionChart from '../../components/ReturnsDistributionChart';
 import { useMemo } from 'react';
 
+
+
 const ReturnsAnalysis = ({ data, onStockClick }) => {
   const { performanceBased, returnBased } = data;
   const { isDark } = useTheme();
@@ -67,38 +69,7 @@ const ReturnsAnalysis = ({ data, onStockClick }) => {
     }
   ] : null;
 
-
-  return (
-    <div className="space-y-6">
-      {/* Returns Time Series Chart - Full Width */}
-      <div className={`rounded-xl shadow-lg p-6 transition-colors duration-300 ${
-        isDark ? 'bg-gray-800' : 'bg-white'
-      }`}>
-        <div className="flex items-center space-x-2 mb-4">
-          <TrendingUp className="w-5 h-5 text-blue-600" />
-          <h3 className={`text-lg font-semibold transition-colors duration-300 ${
-            isDark ? 'text-white' : 'text-gray-900'
-          }`}>Portfolio Returns Over Time</h3>
-        </div>
-        <div className="h-80">
-          {/* <TradingViewChart
-            data={returnsChartData}
-            primaryLabel="Returns (%)"
-            showVolume={false}
-            showComparison={false}
-          /> */}
-          <ReturnsBarsChart
-            data={returnsChartData.primaryData}
-            secondaryData={returnsChartData.secondaryData}
-            primaryLabel="Portfolio Returns"
-            secondaryLabel="Benchmark Returns"
-            baselineMode_input="zero" // or "lowest"
-            showComparison={false}
-          />
-        </div>
-      </div>
-
-      <div className="grid lg:grid-cols-2 gap-6">
+  const Key_Performance_Metrics_Component = () => (<div className="grid lg:grid-cols-2 gap-6">
         {/* Key Performance Metrics - 2x2 Cards */}
         <div className={`rounded-xl shadow-lg p-6 pb-8 transition-colors duration-300 ${
           isDark ? 'bg-gray-800' : 'bg-white'
@@ -117,9 +88,10 @@ const ReturnsAnalysis = ({ data, onStockClick }) => {
               emoji="🎯"
             />
             <MetricCard
-              title="Volatility"
-              value={performanceBased?.portfolio_level_performance?.tracking_error || 0}
-              valueFormatter={(val) => `${val}%`}
+              title="Sharpe Ratio"
+              // value={performanceBased?.portfolio_level_performance?.tracking_error || 0}
+              value={performanceBased?.portfolio_level_performance?.sharpe_ratio || 0}
+              // valueFormatter={(val) => `${val}%`}
               color="orange"
               size="small"
               icon={AlertTriangle}
@@ -147,12 +119,34 @@ const ReturnsAnalysis = ({ data, onStockClick }) => {
 
         {/* Returns Distribution - Line Chart */}
         <ReturnsDistributionChart returnBased={returnBased} />
+      </div>);
+
+  const Returns_Time_Series_Chart_Component = () => (
+    <div className={`rounded-xl shadow-lg p-6 transition-colors duration-300 ${
+        isDark ? 'bg-gray-800' : 'bg-white'
+      }`}>
+        <div className="flex items-center space-x-2 mb-4">
+          <TrendingUp className="w-5 h-5 text-blue-600" />
+          <h3 className={`text-lg font-semibold transition-colors duration-300 ${
+            isDark ? 'text-white' : 'text-gray-900'
+          }`}>Portfolio Returns Over Time</h3>
+        </div>
+        <div className="h-80">
+          <ReturnsBarsChart
+            data={returnsChartData.primaryData}
+            secondaryData={returnsChartData.secondaryData}
+            primaryLabel="Portfolio Returns"
+            secondaryLabel="Benchmark Returns"
+            baselineMode_input="zero" // or "lowest"
+            showComparison={false}
+          />
+        </div>
       </div>
+  );
 
-      {console.log("rollingMetrics : ",JSON.stringify(rollingMetrics,null,2))}
-
-      {/* Rolling Performance Metrics - 4 Mini Bar Charts */}
-      {rollingMetrics && (
+  const Rolling_Performance_Metrics_Component = () => {
+    if(!rollingMetrics) return null;
+    return (
         <div className={`rounded-xl shadow-lg p-6 transition-colors duration-300 ${
           isDark ? 'bg-gray-800' : 'bg-white'
         }`}>
@@ -177,10 +171,11 @@ const ReturnsAnalysis = ({ data, onStockClick }) => {
 
           </div>
         </div>
-      )}
+      )
+  };
 
-      {/* Security Performance Table */}
-      <div className={`rounded-xl shadow-lg p-6 transition-colors duration-300 ${
+  const Security_Performance_Table_Component = () => (
+    <div className={`rounded-xl shadow-lg p-6 transition-colors duration-300 ${
         isDark ? 'bg-gray-800' : 'bg-white'
       }`}>
         <div className="flex items-center space-x-2 mb-4">
@@ -204,6 +199,25 @@ const ReturnsAnalysis = ({ data, onStockClick }) => {
           striped={true}
         />
       </div>
+  );
+
+  return (
+    <div className="space-y-6">
+
+
+
+      <Returns_Time_Series_Chart_Component />
+      <Key_Performance_Metrics_Component />
+
+
+      {/* Rolling Performance Metrics - 4 Mini Bar Charts */}
+      <Rolling_Performance_Metrics_Component />
+      
+
+      {/* Security Performance Table */}
+      <Security_Performance_Table_Component />
+
+
     </div>
   );
 };

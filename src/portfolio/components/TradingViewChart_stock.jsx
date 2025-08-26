@@ -232,7 +232,7 @@ const TradingViewChart = ({
   // Calculate returns for selected timeframe
   const returns = useMemo(() => {
     const { timeframeData } = processedData;
-    if (!timeframeData || timeframeData.length < 2) return { value: 0, percentage: 0 };
+    if (!timeframeData || timeframeData.length < 2) return { value: 0, percentage: 0, dollarChange: 0 };
 
     const startPrice = timeframeData[0].close;
     const endPrice = timeframeData[timeframeData.length - 1].close;
@@ -242,6 +242,7 @@ const TradingViewChart = ({
     return {
       value: change,
       percentage,
+      dollarChange: change, // This is the dollar profit/loss
       isPositive: change >= 0
     };
   }, [processedData]);
@@ -769,7 +770,7 @@ const TradingViewChart = ({
               className="text-lg font-bold"
               style={{ color: returns.isPositive ? '#10B981' : '#EF4444' }}
             >
-              {returns.isPositive ? '+' : ''}{returns.percentage.toFixed(2)}%
+              {returns.isPositive ? '+' : ''}${returns.dollarChange.toFixed(2)} ({returns.isPositive ? '+' : ''}{returns.percentage.toFixed(2)}%)
             </span>
           </div>
 

@@ -1,164 +1,129 @@
-import React, { useState } from 'react';
-import PieChart from '../components/PieChart';
-import { useTheme } from '../../ThemeContext';
+import CompareMethodologies from './allocation/CompareMethodologies';
+import PortfolioWeightsComparison from './allocation/PortfolioWeightsComparison';
+import PortfolioAnalyticsSection from './allocation/PortfolioAnalyticsSection';
 
-const AllocationPage = ({ portfolioData, onStockClick }) => {
-  const [allocationView, setAllocationView] = useState(10);
+// Mock theme context
+const useTheme = () => ({ isDark: true });
+
+// Sample portfolio data
+const portfolioData = {
+  stocks: [
+    { ticker: 'AAPL', allocation: 22.5, return: 15.2, volatility: 18.3, beta: 1.2 },
+    { ticker: 'MSFT', allocation: 18.7, return: 12.8, volatility: 16.1, beta: 1.1 },
+    { ticker: 'GOOGL', allocation: 15.3, return: 8.9, volatility: 21.2, beta: 1.3 },
+    { ticker: 'AMZN', allocation: 12.1, return: 6.4, volatility: 24.8, beta: 1.4 },
+    { ticker: 'TSLA', allocation: 9.8, return: 28.5, volatility: 35.2, beta: 2.1 },
+    { ticker: 'NVDA', allocation: 8.6, return: 45.3, volatility: 32.7, beta: 1.9 },
+    { ticker: 'META', allocation: 7.2, return: 22.1, volatility: 28.9, beta: 1.6 },
+    { ticker: 'NFLX', allocation: 5.8, return: -8.2, volatility: 26.4, beta: 1.5 }
+  ]
+};
+
+const methodologies = {
+  'Black-Litterman': {
+    name: 'Black-Litterman',
+    short: 'BL',
+    description: 'Bayesian approach combining market equilibrium',
+    expectedReturn: 14.8,
+    sharpeRatio: 0.82,
+    allocations: {
+      'AAPL': 22.5, 'MSFT': 18.7, 'GOOGL': 15.3, 'AMZN': 12.1, 
+      'TSLA': 9.8, 'NVDA': 8.6, 'META': 7.2, 'NFLX': 5.8
+    }
+  },
+  'HRP Optimization': {
+    name: 'HRP Optimization',
+    short: 'HRP',
+    description: 'Hierarchical Risk Parity clustering',
+    expectedReturn: 16.2,
+    sharpeRatio: 0.74,
+    allocations: {
+      'AAPL': 16.8, 'MSFT': 16.2, 'GOOGL': 14.9, 'AMZN': 13.7, 
+      'TSLA': 12.4, 'NVDA': 11.1, 'META': 9.6, 'NFLX': 5.3
+    }
+  },
+  'MPT Optimization': {
+    name: 'MPT Optimization',
+    short: 'MPT',
+    description: 'Modern Portfolio Theory optimization',
+    expectedReturn: 13.5,
+    sharpeRatio: 0.91,
+    allocations: {
+      'AAPL': 25.3, 'MSFT': 21.4, 'GOOGL': 18.2, 'AMZN': 15.1, 
+      'TSLA': 8.9, 'NVDA': 6.2, 'META': 3.4, 'NFLX': 1.5
+    }
+  },
+  'Equal Weight': {
+    name: 'Equal Weight',
+    short: 'EW',
+    description: 'Equal allocation across all assets',
+    expectedReturn: 15.6,
+    sharpeRatio: 0.65,
+    allocations: {
+      'AAPL': 12.5, 'MSFT': 12.5, 'GOOGL': 12.5, 'AMZN': 12.5, 
+      'TSLA': 12.5, 'NVDA': 12.5, 'META': 12.5, 'NFLX': 12.5
+    }
+  }
+};
+
+const stockColors = {
+  'AAPL': '#4A7BFF', 'MSFT': '#4AC759', 'GOOGL': '#FF9B44', 'AMZN': '#FF5555',
+  'TSLA': '#B366E6', 'NVDA': '#52D974', 'META': '#5BC4E6', 'NFLX': '#FF5D9E'
+};
+
+const methodologyAnalytics = {
+  'Black-Litterman': { risk: 0.18, return: 0.148, sharpe: 0.973, diversification: 6.9 },
+  'HRP': { risk: 0.08, return: 0.03, sharpe: -0.645, diversification: 2.0 },
+  'MPT': { risk: 0.42, return: 0.54, sharpe: 1.141, diversification: 1.0 }
+};
+
+const AllocationComparisonPage = () => {
   const { isDark } = useTheme();
 
-  const displayedStocks = allocationView === -1 
-    ? portfolioData.stocks 
-    : portfolioData.stocks.slice(0, allocationView);
-
   return (
-    <div className="space-y-8">
-      {/* Allocation Controls */}
-      <div className="flex justify-between items-center">
-        <h3 className={`text-lg font-semibold transition-colors duration-300 ${
-          isDark ? 'text-white' : 'text-gray-900'
-        }`}>Asset Allocation Analysis</h3>
-        <div className="flex items-center space-x-4">
-          <span className={`text-sm transition-colors duration-300 ${
-            isDark ? 'text-gray-400' : 'text-gray-600'
-          }`}>Show:</span>
-          <select 
-            value={allocationView}
-            onChange={(e) => setAllocationView(Number(e.target.value))}
-            className={`px-3 py-1 border rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-300 ${
-              isDark 
-                ? 'border-gray-600 bg-gray-700 text-white' 
-                : 'border-gray-300 bg-white text-gray-900'
-            }`}
-          >
-            <option value={10}>Top 10</option>
-            <option value={20}>Top 20</option>
-            <option value={-1}>All Assets</option>
-          </select>
-        </div>
-      </div>
+    <div className={`min-h-screen p-4 transition-colors duration-300 ${
+      isDark ? 'bg-gray-900' : 'bg-gray-50'
+    }`}>
+      <style>{`
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateY(10px) scale(0.98);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+        .slide-in {
+          animation: slideIn 0.6s ease-out forwards;
+        }
+      `}</style>
+      
+      <div className="max-w-7xl mx-auto space-y-12">
+        {/* Compare Methodologies Section */}
+        <CompareMethodologies 
+          portfolioData={portfolioData}
+          methodologies={methodologies}
+          stockColors={stockColors}
+          isDark={isDark}
+        />
 
-      <div className="grid lg:grid-cols-2 gap-8">
-        {/* Pie Chart */}
-        <div className={`rounded-xl shadow-lg p-6 transition-colors duration-300 ${
-          isDark ? 'bg-gray-800' : 'bg-white'
-        }`}>
-          <PieChart 
-            data={portfolioData.stocks}
-            title="Portfolio Allocation"
-          />
-        </div>
+        {/* Portfolio Weights Comparison Section */}
+        <PortfolioWeightsComparison 
+          portfolioData={portfolioData}
+          methodologies={methodologies}
+          isDark={isDark}
+        />
 
-        {/* Allocation List */}
-        <div className={`rounded-xl shadow-lg p-6 transition-colors duration-300 ${
-          isDark ? 'bg-gray-800' : 'bg-white'
-        }`}>
-          <h4 className={`text-lg font-semibold mb-6 transition-colors duration-300 ${
-            isDark ? 'text-white' : 'text-gray-900'
-          }`}>Detailed Allocation</h4>
-          <div className="space-y-4">
-            {displayedStocks.map((stock, index) => (
-              <div 
-                key={stock.ticker} 
-                className={`flex items-center justify-between p-4 border rounded-lg cursor-pointer transition-colors duration-300 ${
-                  isDark 
-                    ? 'border-gray-600 hover:bg-gray-700' 
-                    : 'border-gray-200 hover:bg-gray-50'
-                }`}
-                onClick={() => onStockClick(stock.ticker)}
-              >
-                <div className="flex items-center space-x-3">
-                  <div 
-                    className="w-4 h-4 rounded-full"
-                    style={{ 
-                      backgroundColor: ['#3B82F6', '#8B5CF6', '#10B981', '#F59E0B', '#EF4444', '#06B6D4'][index % 6]
-                    }}
-                  ></div>
-                  <span className={`font-medium transition-colors duration-300 ${
-                    isDark ? 'text-white' : 'text-gray-900'
-                  }`}>{stock.ticker}</span>
-                </div>
-                <div className="text-right">
-                  <div className={`font-semibold transition-colors duration-300 ${
-                    isDark ? 'text-white' : 'text-gray-900'
-                  }`}>{stock.allocation}%</div>
-                  <div className={`text-sm transition-colors duration-300 ${
-                    isDark ? 'text-gray-400' : 'text-gray-500'
-                  }`}>
-                    ${Math.round(portfolioData.statistics.totalValue * stock.allocation / 100).toLocaleString()}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Allocation Performance */}
-      <div className={`rounded-xl shadow-lg p-6 transition-colors duration-300 ${
-        isDark ? 'bg-gray-800' : 'bg-white'
-      }`}>
-        <h4 className={`text-lg font-semibold mb-6 transition-colors duration-300 ${
-          isDark ? 'text-white' : 'text-gray-900'
-        }`}>Allocation Performance Analysis</h4>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {portfolioData.stocks.map((stock, index) => (
-            <div 
-              key={stock.ticker}
-              className={`p-4 border rounded-lg cursor-pointer transition-all duration-300 ${
-                isDark 
-                  ? 'border-gray-600 hover:shadow-md hover:bg-gray-700' 
-                  : 'border-gray-200 hover:shadow-md hover:bg-gray-50'
-              }`}
-              onClick={() => onStockClick(stock.ticker)}
-            >
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center space-x-2">
-                  <div 
-                    className="w-3 h-3 rounded-full"
-                    style={{ 
-                      backgroundColor: ['#3B82F6', '#8B5CF6', '#10B981', '#F59E0B'][index % 4]
-                    }}
-                  ></div>
-                  <span className={`font-semibold transition-colors duration-300 ${
-                    isDark ? 'text-white' : 'text-gray-900'
-                  }`}>{stock.ticker}</span>
-                </div>
-                <span className={`text-sm font-medium transition-colors duration-300 ${
-                  isDark ? 'text-gray-400' : 'text-gray-600'
-                }`}>{stock.allocation}%</span>
-              </div>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className={`transition-colors duration-300 ${
-                    isDark ? 'text-gray-400' : 'text-gray-600'
-                  }`}>Return:</span>
-                  <span className={`font-medium ${stock.return >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                    {stock.return > 0 ? '+' : ''}{stock.return}%
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className={`transition-colors duration-300 ${
-                    isDark ? 'text-gray-400' : 'text-gray-600'
-                  }`}>Volatility:</span>
-                  <span className={`font-medium transition-colors duration-300 ${
-                    isDark ? 'text-white' : 'text-gray-900'
-                  }`}>{parseFloat(stock.volatility).toFixed(2)}%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className={`transition-colors duration-300 ${
-                    isDark ? 'text-gray-400' : 'text-gray-600'
-                  }`}>Beta:</span>
-                  <span className={`font-medium transition-colors duration-300 ${
-                    isDark ? 'text-white' : 'text-gray-900'
-                  }`}>{stock.beta}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+        {/* Portfolio Analytics Dashboard Section */}
+        <PortfolioAnalyticsSection 
+          methodologyAnalytics={methodologyAnalytics}
+          isDark={isDark}
+        />
+      </div>    
+    </div>    
   );
 };
 
-export default AllocationPage;
+export default AllocationComparisonPage;

@@ -4,7 +4,9 @@ import { ThemeProvider, useTheme } from './ThemeContext';
 import HamburgerMenu from './HamburgerMenu';
 // import PortfolioBuilder from './portfolio/PortfolioBuilder';
 import PortfolioBuilder from './portfolio/PortfolioBuilder-cleaned';
-import PortfolioAnalytics from './portfolio/PortfolioAnalytics';
+// import PortfolioAnalytics from './portfolio/PortfolioAnalytics_top_logo';
+// import PortfolioAnalytics from './portfolio/PortfolioAnalytics_down';
+import PortfolioAnalytics from './portfolio/PortfolioAnalytics_top';
 import StockAnalytics from './stock_analytics/StockAnalytics';
 
 // Main App Content Component
@@ -39,6 +41,7 @@ const AppContent = () => {
                   alt="Numeriaxial Logo" 
                   // className="w-10 h-10 object-contain rounded-lg"
                   // background white 
+                  // className={`object-contain bg-white border`}
                   className={`object-contain bg-white`}
                 />
               </div>
@@ -79,36 +82,6 @@ const AppContent = () => {
 
         {/* Service Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-          {/* RL Card */}
-          <div 
-            onClick={() => setCurrentPage('rl')}
-            className={`rounded-xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 cursor-pointer group ${
-              isDark 
-                ? 'bg-gray-800 hover:bg-gray-750 border border-gray-700' 
-                : 'bg-white hover:bg-gray-50'
-            }`}
-          >
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mx-auto mb-6">
-              <Brain className="h-8 w-8 text-white" />
-            </div>
-            <h3 className={`text-2xl font-bold mb-4 transition-colors duration-300 ${
-              isDark ? 'text-white' : 'text-gray-900'
-            }`}>
-              Reinforcement Learning
-            </h3>
-            <p className={`mb-6 transition-colors duration-300 ${
-              isDark ? 'text-gray-300' : 'text-gray-600'
-            }`}>
-              Deploy advanced RL algorithms for automated trading strategies and market prediction models.
-            </p>
-            <div className={`flex items-center justify-center transition-colors duration-300 ${
-              isDark ? 'text-blue-400 group-hover:text-blue-300' : 'text-blue-600 group-hover:text-blue-700'
-            }`}>
-              <span className="mr-2">Explore RL</span>
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
-
           {/* Screener Card */}
           <div 
             onClick={() => setCurrentPage('screener')}
@@ -165,6 +138,36 @@ const AppContent = () => {
               isDark ? 'text-blue-400 group-hover:text-blue-300' : 'text-blue-600 group-hover:text-blue-700'
             }`}>
               <span className="mr-2">Analyze Portfolio</span>
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+
+          {/* RL Card */}
+          <div 
+            onClick={() => setCurrentPage('rl')}
+            className={`rounded-xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 cursor-pointer group ${
+              isDark 
+                ? 'bg-gray-800 hover:bg-gray-750 border border-gray-700' 
+                : 'bg-white hover:bg-gray-50'
+            }`}
+          >
+            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mx-auto mb-6">
+              <Brain className="h-8 w-8 text-white" />
+            </div>
+            <h3 className={`text-2xl font-bold mb-4 transition-colors duration-300 ${
+              isDark ? 'text-white' : 'text-gray-900'
+            }`}>
+              Reinforcement Learning
+            </h3>
+            <p className={`mb-6 transition-colors duration-300 ${
+              isDark ? 'text-gray-300' : 'text-gray-600'
+            }`}>
+              Deploy advanced RL algorithms for automated trading strategies and market prediction models.
+            </p>
+            <div className={`flex items-center justify-center transition-colors duration-300 ${
+              isDark ? 'text-blue-400 group-hover:text-blue-300' : 'text-blue-600 group-hover:text-blue-700'
+            }`}>
+              <span className="mr-2">Explore RL</span>
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </div>
           </div>
