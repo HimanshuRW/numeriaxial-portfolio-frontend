@@ -1,199 +1,6 @@
-import React, { useState, useRef } from 'react';
-import { X, Plus } from 'lucide-react';
-
-const PieChart = ({ methodology, data, onRemove, onStockHover, onStockLeave, hoveredStock, isDark, stockColors, portfolioData }) => {
-  const svgRef = useRef();
-  const center = 100;
-  const radius = 70;
-  const labelRadius = 85;
-  
-  const chartData = portfolioData.stocks
-    .map(stock => ({
-      ...stock,
-      allocation: data.allocations[stock.ticker] || 0,
-      color: stockColors[stock.ticker]
-    }))
-    .filter(stock => stock.allocation > 0)
-    .sort((a, b) => b.allocation - a.allocation);
-
-  if (chartData.length === 0) {
-    return (
-      <div className={`relative rounded-xl shadow-lg p-4 transition-all duration-300 ${
-        isDark ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-200'
-      }`}>
-        <div className="text-center text-gray-500">No data available</div>
-      </div>
-    );
-  }
-
-  let cumulativePercentage = 0;
-  const arcs = chartData.map(stock => {
-    const startAngle = (cumulativePercentage / 100) * 2 * Math.PI - Math.PI / 2;
-    const endAngle = ((cumulativePercentage + stock.allocation) / 100) * 2 * Math.PI - Math.PI / 2;
-    const midAngle = (startAngle + endAngle) / 2;
-    
-    const x1 = center + radius * Math.cos(startAngle);
-    const y1 = center + radius * Math.sin(startAngle);
-    const x2 = center + radius * Math.cos(endAngle);
-    const y2 = center + radius * Math.sin(endAngle);
-    
-    // Label position
-    const labelX = center + labelRadius * Math.cos(midAngle);
-    const labelY = center + labelRadius * Math.sin(midAngle);
-    
-    const largeArcFlag = stock.allocation > 50 ? 1 : 0;
-    
-    const pathData = [
-      `M ${center} ${center}`,
-      `L ${x1} ${y1}`,
-      `A ${radius} ${radius} 0 ${largeArcFlag} 1 ${x2} ${y2}`,
-      'Z'
-    ].join(' ');
-    
-    cumulativePercentage += stock.allocation;
-    
-    return {
-      ...stock,
-      pathData,
-      labelX,
-      labelY,
-      isHovered: hoveredStock === stock.ticker
-    };
-  });
-
-  return (
-    <div className={`relative rounded-xl shadow-lg p-4 transition-all duration-300 ${
-      isDark ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-200'
-    }`}>
-      {/* Remove button */}
-      <button
-        onClick={() => onRemove(methodology)}
-        className="absolute top-2 right-2 w-6 h-6 bg-red-100 hover:bg-red-200 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 z-10"
-      >
-        <X className="w-3 h-3 text-red-600" />
-      </button>
-      
-      {/* Header */}
-      <div className="mb-3">
-        <h4 className={`text-sm font-semibold transition-colors duration-300 ${
-          isDark ? 'text-white' : 'text-gray-900'
-        }`}>{data.name}</h4>
-      </div>
-      
-      {/* SVG Pie Chart */}
-      <div className="flex justify-center mb-4 relative">
-        <svg 
-          ref={svgRef}
-          width="200" 
-          height="200" 
-          className="drop-shadow-sm"
-        >
-          <defs>
-            <filter id={`shadow-${methodology.replace(/\s+/g, '-')}`}>
-              <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="rgba(0,0,0,0.1)" />
-            </filter>
-          </defs>
-          
-          {/* Pie segments */}
-          {arcs.map((arc, index) => (
-            <g key={`${arc.ticker}-${index}`}>
-              <path
-                d={arc.pathData}
-                fill={arc.color}
-                stroke={isDark ? "#374151" : "white"}
-                strokeWidth="2"
-                className={`transition-all duration-300 cursor-pointer ${
-                  hoveredStock && hoveredStock !== arc.ticker ? 'opacity-30' : 'opacity-100'
-                }`}
-                style={{
-                  filter: `url(#shadow-${methodology.replace(/\s+/g, '-')})`,
-                  transformOrigin: `${center}px ${center}px`,
-                  transform: arc.isHovered ? 'scale(1.05)' : 'scale(1)',
-                  filter: arc.isHovered ? 'brightness(1.2) drop-shadow(0 4px 8px rgba(0,0,0,0.2))' : 'brightness(1)'
-                }}
-                onMouseEnter={() => onStockHover(arc.ticker)}
-                onMouseLeave={onStockLeave}
-              />
-            </g>
-          ))}
-          
-          {/* Labels */}
-          {arcs.map((arc, index) => (
-            <g key={`label-${arc.ticker}-${index}`}>
-              <text
-                x={arc.labelX}
-                y={arc.labelY - 4}
-                textAnchor="middle"
-                className={`text-xs font-medium transition-all duration-300 pointer-events-none ${
-                  isDark ? 'fill-gray-300' : 'fill-gray-600'
-                } ${arc.isHovered ? 'fill-white font-bold' : ''}`}
-                style={{
-                  textShadow: arc.isHovered ? '1px 1px 2px rgba(0,0,0,0.8)' : '1px 1px 2px rgba(0,0,0,0.5)'
-                }}
-              >
-                {arc.ticker}
-              </text>
-              <text
-                x={arc.labelX}
-                y={arc.labelY + 8}
-                textAnchor="middle"
-                className={`text-xs transition-all duration-300 pointer-events-none ${
-                  isDark ? 'fill-gray-400' : 'fill-gray-500'
-                } ${arc.isHovered ? 'fill-white font-bold' : ''}`}
-                style={{
-                  textShadow: arc.isHovered ? '1px 1px 2px rgba(0,0,0,0.8)' : '1px 1px 2px rgba(0,0,0,0.5)'
-                }}
-              >
-                {arc.allocation.toFixed(1)}%
-              </text>
-            </g>
-          ))}
-          
-          {/* Center circle with methodology abbreviation */}
-          <circle
-            cx={center}
-            cy={center}
-            r="25"
-            fill={isDark ? "#1F2937" : "white"}
-            stroke={isDark ? "#4B5563" : "#E5E7EB"}
-            strokeWidth="2"
-            className="drop-shadow-sm"
-          />
-          <text
-            x={center}
-            y={center + 4}
-            textAnchor="middle"
-            className={`text-xs font-bold ${isDark ? 'fill-white' : 'fill-gray-700'}`}
-          >
-            {data.short}
-          </text>
-        </svg>
-      </div>
-
-      {/* Metrics */}
-      <div className={`grid grid-cols-2 gap-3 pt-3 border-t ${
-        isDark ? 'border-gray-700' : 'border-gray-200'
-      }`}>
-        <div className="text-center">
-          <div className={`text-xs font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-            Expected Return
-          </div>
-          <div className={`text-sm font-bold mt-1 ${isDark ? 'text-green-400' : 'text-green-600'}`}>
-            {data.expectedReturn.toFixed(1)}%
-          </div>
-        </div>
-        <div className="text-center">
-          <div className={`text-xs font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-            Sharpe Ratio
-          </div>
-          <div className={`text-sm font-bold mt-1 ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>
-            {data.sharpeRatio.toFixed(2)}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+import { useState } from 'react';
+import { Plus} from 'lucide-react';
+import PieChart from '../../components/PieChart';
 
 const CompareMethodologies = ({ portfolioData, methodologies, stockColors, isDark }) => {
   const [selectedMethodologies, setSelectedMethodologies] = useState(['Black-Litterman']);
@@ -236,118 +43,274 @@ const CompareMethodologies = ({ portfolioData, methodologies, stockColors, isDar
     return '';
   };
 
+  // Determine if we need scrollbar for stocks
+  const needsScrollbar = portfolioData.stocks.length > 15;
+  const maxHeight = needsScrollbar ? 'max-h-96' : '';
+
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-      {/* Left Sidebar */}
-      <div className="lg:col-span-1">
-        <div className={`rounded-xl shadow-lg p-6 transition-colors duration-300 ${
-          isDark ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-200'
-        }`}>
-          <h3 className={`text-lg font-bold mb-6 transition-colors duration-300 ${
-            isDark ? 'text-white' : 'text-gray-900'
-          }`}>Compare Methodologies</h3>
+    <div className="min-h-screen p-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Header with title and Add Method button */}
+        <div className="flex items-center justify-between mb-8">
+          <h1 className={`text-3xl font-bold bg-gradient-to-r ${
+            isDark 
+              ? 'from-white via-blue-200 to-purple-200' 
+              : 'from-gray-900 via-blue-600 to-purple-600'
+          } bg-clip-text text-transparent`}>
+            Compare Methodologies
+          </h1>
           
           {/* Add Methodology Button */}
-          <div className="relative mb-6">
+          <div className="relative">
             <button
               onClick={() => setIsAddingNew(!isAddingNew)}
-              className={`w-full px-4 py-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-sm font-medium ${
+              className={`px-6 py-3 rounded-xl backdrop-blur-sm transition-all duration-300 flex items-center justify-center gap-3 text-sm font-semibold hover:scale-105 group ${
                 isDark 
-                  ? 'bg-blue-600 hover:bg-blue-700 text-white' 
-                  : 'bg-blue-500 hover:bg-blue-600 text-white'
+                  ? 'bg-gradient-to-r from-blue-600/80 to-purple-600/80 hover:from-blue-500/90 hover:to-purple-500/90 text-white shadow-lg hover:shadow-blue-500/25' 
+                  : 'bg-gradient-to-r from-blue-500/90 to-purple-500/90 hover:from-blue-400 hover:to-purple-400 text-white shadow-lg hover:shadow-blue-500/25'
               }`}
             >
-              <Plus className="w-4 h-4" />
+              <Plus className={`w-5 h-5 transition-transform duration-300 ${isAddingNew ? 'rotate-45' : 'group-hover:rotate-90'}`} />
               Add Method
             </button>
             
             {isAddingNew && (
-              <div className={`absolute top-full left-0 right-0 mt-2 rounded-lg shadow-xl z-20 overflow-hidden transition-colors duration-300 ${
-                isDark ? 'bg-gray-700 border border-gray-600' : 'bg-white border border-gray-200'
+              <div className={`absolute top-full right-0 mt-3 w-80 rounded-xl backdrop-blur-xl shadow-2xl z-20 transition-all duration-500 animate-in slide-in-from-top-2 ${
+                isDark ? 'bg-gray-800/90 border border-gray-600/50' : 'bg-white/90 border border-gray-200/50'
               }`}>
-                {Object.entries(methodologies)
-                  .filter(([key]) => !selectedMethodologies.includes(key))
-                  .map(([key, method]) => (
-                    <button
-                      key={key}
-                      onClick={() => handleAddMethodology(key)}
-                      className={`w-full px-4 py-3 text-left transition-colors duration-150 ${
-                        isDark 
-                          ? 'hover:bg-gray-600 border-b border-gray-600 text-white last:border-b-0' 
-                          : 'hover:bg-gray-50 border-b border-gray-100 text-gray-900 last:border-b-0'
-                      }`}
-                    >
-                      <div className="font-medium text-sm">{method.name}</div>
-                      <div className={`text-xs mt-1 ${isDark ? 'text-gray-300' : 'text-gray-500'}`}>
-                        {method.description}
-                      </div>
-                    </button>
-                  ))}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+                <div className="relative">
+                  {Object.entries(methodologies)
+                    .filter(([key]) => !selectedMethodologies.includes(key))
+                    .map(([key, method], index) => (
+                      <button
+                        key={key}
+                        onClick={() => handleAddMethodology(key)}
+                        className={`w-full px-6 py-4 text-left transition-all duration-300 hover:scale-[1.02] ${
+                          isDark 
+                            ? 'hover:bg-gray-700/50 border-b border-gray-600/30 text-white last:border-b-0' 
+                            : 'hover:bg-gray-50/50 border-b border-gray-100/50 text-gray-900 last:border-b-0'
+                        }`}
+                        style={{ animationDelay: `${index * 50}ms` }}
+                      >
+                        <div className="font-semibold text-sm">{method.name}</div>
+                        <div className={`text-xs mt-1 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                          {method.description}
+                        </div>
+                      </button>
+                    ))}
+                </div>
               </div>
             )}
           </div>
+        </div>
 
-          {/* Stock Legend */}
-          <div className="space-y-2">
-            <h4 className={`text-sm font-semibold mb-3 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-              Stock Legend
-            </h4>
-            {portfolioData.stocks
-              .sort((a, b) => b.allocation - a.allocation)
-              .map((stock) => (
-                <div
-                  key={stock.ticker}
-                  className={`flex items-center p-2 rounded-lg cursor-pointer transition-all duration-200 ${
-                    hoveredStock === stock.ticker
-                      ? (isDark ? 'bg-blue-800/50' : 'bg-blue-50')
-                      : (isDark ? 'hover:bg-gray-700' : 'hover:bg-gray-50')
-                  }`}
-                  onMouseEnter={() => handleStockHover(stock.ticker)}
-                  onMouseLeave={handleStockLeave}
+        {/* Main content grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+          {/* Compact Left Sidebar - Stocks Only */}
+          <div className="lg:col-span-1">
+            <div className={`rounded-2xl backdrop-blur-xl transition-all duration-500 sticky top-4 ${
+              isDark 
+                ? 'bg-gray-900/70 border border-gray-700/50 shadow-2xl' 
+                : 'bg-white/70 border border-gray-200/50 shadow-2xl'
+            }`}>
+              {/* Glassmorphism overlay */}
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+              
+              <div className="relative p-4">
+                {/* Custom scrollbar CSS */}
+                <style jsx>{`
+                  .custom-scrollbar::-webkit-scrollbar {
+                    width: 4px;
+                  }
+                  .custom-scrollbar::-webkit-scrollbar-track {
+                    background: ${isDark ? 'rgba(55, 65, 81, 0.1)' : 'rgba(229, 231, 235, 0.3)'};
+                    border-radius: 10px;
+                    margin: 4px;
+                  }
+                  .custom-scrollbar::-webkit-scrollbar-thumb {
+                    background: linear-gradient(45deg, ${isDark ? '#4F46E5, #7C3AED' : '#8B5CF6, #06B6D4'});
+                    border-radius: 10px;
+                    transition: all 0.3s ease;
+                  }
+                  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                    background: linear-gradient(45deg, ${isDark ? '#6366F1, #8B5CF6' : '#7C3AED, #0891B2'});
+                    box-shadow: 0 0 10px ${isDark ? 'rgba(99, 102, 241, 0.4)' : 'rgba(139, 92, 246, 0.4)'};
+                  }
+                `}</style>
+                <h4 className={`text-sm font-bold mb-4 flex items-center ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                  <div className={`w-2 h-2 rounded-full mr-2 ${isDark ? 'bg-purple-400' : 'bg-blue-500'}`} />
+                  Stocks ({portfolioData.stocks.length})
+                </h4>
+                
+                {/* Scrollable stocks list */}
+                <div 
+                  className={`space-y-2 ${maxHeight} ${needsScrollbar ? 'overflow-y-auto pr-2 custom-scrollbar' : ''}`}
+                  style={{
+                    scrollbarWidth: 'thin',
+                    scrollbarColor: isDark ? '#4F46E5 rgba(55, 65, 81, 0.1)' : '#8B5CF6 rgba(229, 231, 235, 0.3)'
+                  }}
                 >
-                  <div className="flex items-center space-x-3">
-                    <div
-                      className={`w-4 h-4 rounded-full transition-all duration-200 ${
-                        hoveredStock === stock.ticker ? 'scale-125 shadow-md' : ''
-                      }`}
-                      style={{ backgroundColor: stockColors[stock.ticker] }}
-                    />
-                    <span className={`text-sm font-medium transition-colors duration-300 ${
-                      isDark ? 'text-white' : 'text-gray-900'
-                    }`}>{stock.ticker}</span>
+                  {portfolioData.stocks
+                    .sort((a, b) => b.allocation - a.allocation)
+                    .map((stock, index) => (
+                      <div
+                        key={stock.ticker}
+                        className={`flex items-center p-2 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 ${
+                          hoveredStock === stock.ticker
+                            ? (isDark ? 'bg-blue-500/20 shadow-lg shadow-blue-500/20 border border-blue-400/30' : 'bg-blue-50/70 shadow-lg shadow-blue-500/20 border border-blue-200/50')
+                            : (isDark ? 'hover:bg-gray-700/50 backdrop-blur-sm' : 'hover:bg-gray-50/50 backdrop-blur-sm')
+                        }`}
+                        onMouseEnter={() => handleStockHover(stock.ticker)}
+                        onMouseLeave={handleStockLeave}
+                        style={{ animationDelay: `${index * 50}ms` }}
+                      >
+                        <div className="flex items-center space-x-3 w-full">
+                          <div
+                            className={`w-4 h-4 rounded-full transition-all duration-300 shadow-md ${
+                              hoveredStock === stock.ticker ? 'scale-125 shadow-lg' : ''
+                            }`}
+                            style={{ 
+                              backgroundColor: stockColors[stock.ticker],
+                              boxShadow: hoveredStock === stock.ticker ? `0 0 15px ${stockColors[stock.ticker]}40` : `0 2px 6px ${stockColors[stock.ticker]}30`
+                            }}
+                          />
+                          <span className={`text-xs font-semibold transition-colors duration-300 ${
+                            isDark ? 'text-white' : 'text-gray-900'
+                          }`}>
+                            {stock.ticker}
+                          </span>
+                          {hoveredStock === stock.ticker && (
+                            <div className={`ml-auto w-2 h-2 rounded-full animate-pulse ${
+                              isDark ? 'bg-blue-400' : 'bg-blue-600'
+                            }`} />
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                </div>
+                
+                {needsScrollbar && (
+                  <div className={`text-xs mt-2 text-center ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                    Scroll for more stocks
                   </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Side - Pie Charts (More space) */}
+          <div className="lg:col-span-4">
+            <div className={`grid gap-8 ${getGridCols(selectedMethodologies.length)}`}>
+              {selectedMethodologies.map((methodology, index) => (
+                <div
+                  key={methodology}
+                  className={`animate-in slide-in-from-bottom-4 fade-in duration-500 ${getItemClass(index, selectedMethodologies.length)}`}
+                  style={{ animationDelay: `${index * 150}ms` }}
+                >
+                  <PieChart
+                    methodology={methodology}
+                    data={methodologies[methodology]}
+                    onRemove={handleRemoveMethodology}
+                    onStockHover={handleStockHover}
+                    onStockLeave={handleStockLeave}
+                    hoveredStock={hoveredStock}
+                    isDark={isDark}
+                    stockColors={stockColors}
+                    portfolioData={portfolioData}
+                  />
                 </div>
               ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Right Side - Pie Charts */}
-      <div className="lg:col-span-3">
-        <div className={`grid gap-6 ${getGridCols(selectedMethodologies.length)}`}>
-          {selectedMethodologies.map((methodology, index) => (
-            <div
-              key={methodology}
-              className={`slide-in ${getItemClass(index, selectedMethodologies.length)}`}
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <PieChart
-                methodology={methodology}
-                data={methodologies[methodology]}
-                onRemove={handleRemoveMethodology}
-                onStockHover={handleStockHover}
-                onStockLeave={handleStockLeave}
-                hoveredStock={hoveredStock}
-                isDark={isDark}
-                stockColors={stockColors}
-                portfolioData={portfolioData}
-              />
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
+// Mock data for demonstration with more stocks to show scrolling
+const mockPortfolioData = {
+  stocks: [
+    { ticker: 'AAPL', allocation: 25 },
+    { ticker: 'GOOGL', allocation: 20 },
+    { ticker: 'MSFT', allocation: 18 },
+    { ticker: 'AMZN', allocation: 15 },
+    { ticker: 'TSLA', allocation: 12 },
+    { ticker: 'NVDA', allocation: 10 },
+    { ticker: 'META', allocation: 8 },
+    { ticker: 'NFLX', allocation: 7 },
+    { ticker: 'AMD', allocation: 6 },
+    { ticker: 'INTC', allocation: 5 },
+    { ticker: 'ORCL', allocation: 4 },
+    { ticker: 'CRM', allocation: 3 },
+    { ticker: 'ADBE', allocation: 3 },
+    { ticker: 'PYPL', allocation: 2 },
+    { ticker: 'UBER', allocation: 2 },
+    { ticker: 'SPOT', allocation: 1.5 },
+    { ticker: 'SQ', allocation: 1.5 },
+    { ticker: 'SHOP', allocation: 1 },
+    { ticker: 'ZOOM', allocation: 1 },
+    { ticker: 'DOCU', allocation: 0.5 }
+  ]
+};
+
+const mockMethodologies = {
+  'Black-Litterman': {
+    name: 'Black-Litterman',
+    short: 'B-L',
+    description: 'Advanced Bayesian approach',
+    expectedReturn: 12.5,
+    sharpeRatio: 1.45,
+    allocations: { 'AAPL': 25, 'GOOGL': 20, 'MSFT': 18, 'AMZN': 15, 'TSLA': 12, 'NVDA': 10 }
+  },
+  'HRP Optimization': {
+    name: 'HRP Optimization',
+    short: 'HRP',
+    description: 'Hierarchical Risk Parity',
+    expectedReturn: 10.8,
+    sharpeRatio: 1.32,
+    allocations: { 'AAPL': 30, 'MSFT': 25, 'GOOGL': 20, 'NVDA': 15, 'TSLA': 10 }
+  },
+  'MPT Optimization': {
+    name: 'MPT Optimization',
+    short: 'MPT',
+    description: 'Modern Portfolio Theory',
+    expectedReturn: 11.2,
+    sharpeRatio: 1.38,
+    allocations: { 'AAPL': 22, 'MSFT': 22, 'GOOGL': 21, 'AMZN': 20, 'TSLA': 15 }
+  },
+  'Equal Weight': {
+    name: 'Equal Weight',
+    short: 'EW',
+    description: 'Equal allocation strategy',
+    expectedReturn: 9.5,
+    sharpeRatio: 1.15,
+    allocations: { 'AAPL': 16.7, 'GOOGL': 16.7, 'MSFT': 16.7, 'AMZN': 16.7, 'TSLA': 16.6, 'NVDA': 16.6 }
+  }
+};
+
+const mockStockColors = {
+  'AAPL': '#007AFF', 'GOOGL': '#EA4335', 'MSFT': '#00BCF2', 'AMZN': '#FF9500', 
+  'TSLA': '#1DB954', 'NVDA': '#76B900', 'META': '#1877F2', 'NFLX': '#E50914',
+  'AMD': '#ED1C24', 'INTC': '#0071C5', 'ORCL': '#F80000', 'CRM': '#00A1E0',
+  'ADBE': '#FF0000', 'PYPL': '#003087', 'UBER': '#000000', 'SPOT': '#1ED760',
+  'SQ': '#000000', 'SHOP': '#95BF47', 'ZOOM': '#2D8CFF', 'DOCU': '#513FFF'
+};
+
+// Demo component with dark theme
+const Demo = () => {
+  return (
+    <div className="bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/20">
+      <CompareMethodologies
+        portfolioData={mockPortfolioData}
+        methodologies={mockMethodologies}
+        stockColors={mockStockColors}
+        isDark={true}
+      />
+    </div>
+  );
+};
+
 export default CompareMethodologies;
+// export default Demo;

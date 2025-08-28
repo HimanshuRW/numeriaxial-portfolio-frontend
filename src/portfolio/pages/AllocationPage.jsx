@@ -1,6 +1,10 @@
 import CompareMethodologies from './allocation/CompareMethodologies';
 import PortfolioWeightsComparison from './allocation/PortfolioWeightsComparison';
 import PortfolioAnalyticsSection from './allocation/PortfolioAnalyticsSection';
+import PortfolioPerformanceChart from './allocation/PortfolioPerformanceChart';
+import { generateTimeConfig, generatePerformanceData } from './allocation/timeconfig';
+
+console.log('AllocationPage.jsx loaded => generateTimeConfig :', generateTimeConfig);
 
 // Mock theme context
 const useTheme = () => ({ isDark: true });
@@ -77,8 +81,17 @@ const methodologyAnalytics = {
   'MPT': { risk: 0.42, return: 0.54, sharpe: 1.141, diversification: 1.0 }
 };
 
+
 const AllocationComparisonPage = () => {
   const { isDark } = useTheme();
+
+  // Generate performance data and time configuration
+  const performanceData = generatePerformanceData();
+  const timeConfig = generateTimeConfig(performanceData);
+
+  // Debug logging (remove in production)
+  console.log('Performance Data:', performanceData);
+  console.log('Time Config:', timeConfig);
 
   return (
     <div className={`min-h-screen p-4 transition-colors duration-300 ${
@@ -101,6 +114,13 @@ const AllocationComparisonPage = () => {
       `}</style>
       
       <div className="max-w-7xl mx-auto space-y-12">
+        {/* Portfolio Performance Chart Section */}
+        <PortfolioPerformanceChart 
+          performanceData={performanceData}
+          timeConfig={timeConfig}
+          isDark={isDark}
+        />
+
         {/* Compare Methodologies Section */}
         <CompareMethodologies 
           portfolioData={portfolioData}

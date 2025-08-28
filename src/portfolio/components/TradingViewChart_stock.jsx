@@ -33,7 +33,7 @@ const TradingViewChart = ({
   // State management
   const [chartType, setChartType] = useState('candlestick');
   const [hoveredPoint, setHoveredPoint] = useState(null);
-  const [crosshair, setCrosshair] = useState({ x: 0, y: 0, visible: false });
+  const [crosshair, setCrosshair] = useState({ x: 0, y: 0, visible: false, dataIndex: null });
   const [showVolumeToggle, setShowVolumeToggle] = useState(showVolume);
   const [showComparisonToggle, setShowComparisonToggle] = useState(showComparison && !!secondaryData);
   const [showScrollHint, setShowScrollHint] = useState(true);
@@ -200,7 +200,7 @@ const TradingViewChart = ({
     let resampleType = 'daily';
 
     if (filteredData.length > MAX_CANDLES) {
-      if (['2Y', 'ALL'].includes(selectedTimeframe)) {1
+      if (['2Y', 'ALL'].includes(selectedTimeframe)) {
         if (filteredData.length > MAX_CANDLES * 4) {
           // Monthly resampling
           resampledData = resampleToMonthly(filteredData);
@@ -374,6 +374,7 @@ const TradingViewChart = ({
   const chartWidth = chartContainerWidth;
   const chartHeight = chartContainerHeight - volumeHeight;
   
+  // const getX = (index) => padding.left + (index / (visibleData.data.length - 1)) * (chartWidth - padding.left - padding.right);
   const getX = (index) => padding.left + (index / (visibleData.data.length - 1)) * (chartWidth - padding.left - padding.right);
   const getY = (value) => padding.top + ((priceData.max - value) / priceData.range) * (chartHeight - padding.top - padding.bottom);
   const getSecondaryY = (value) => {
@@ -481,10 +482,17 @@ const TradingViewChart = ({
     }
   }, [panOffset]);
 
+  // Fixed mouse move handler with proper coordinate conversion
   const handleMouseMove = useCallback((e) => {
-    const svgRect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - svgRect.left;
-    const y = e.clientY - svgRect.top;
+    if (!chartRef.current) return;
+    
+    const svgRect = chartRef.current.getBoundingClientRect();
+    const svgWidth = svgRect.width;
+    const svgHeight = svgRect.height;
+    
+    // Convert mouse coordinates to SVG coordinate system
+    const mouseX = ((e.clientX - svgRect.left) / svgWidth) * chartContainerWidth;
+    const mouseY = ((e.clientY - svgRect.top) / svgHeight) * chartContainerHeight;
 
     if (isDraggingRef.current) {
         const deltaX = e.clientX - dragStart.x;
@@ -496,22 +504,32 @@ const TradingViewChart = ({
         
         setPanOffset(clampedOffset);
     } else {
-        const isInChartArea = x >= padding.left && 
-                              x <= (chartWidth - padding.right) && 
-                              y >= padding.top && 
-                              y <= chartHeight;
+        const isInChartArea = mouseX >= padding.left && 
+                              mouseX <= (chartWidth - padding.right) && 
+                              mouseY >= padding.top && 
+                              mouseY <= chartHeight;
 
-        if (isInChartArea) {
+        if (isInChartArea && visibleData.data.length > 0) {
+            // Calculate the data index based on mouse X position
+            const relativeX = mouseX - padding.left;
+            const plotWidth = chartWidth - padding.left - padding.right;
+            const dataIndex = Math.round((relativeX / plotWidth) * (visibleData.data.length - 1));
+            const clampedDataIndex = Math.max(0, Math.min(dataIndex, visibleData.data.length - 1));
+            
+            // Snap crosshair to exact data point X position
+            const snappedX = getX(clampedDataIndex);
+            
             setCrosshair({ 
-                x: Math.max(padding.left, Math.min(x, chartWidth - padding.right)), 
-                y: Math.max(padding.top, Math.min(y, chartHeight)), 
-                visible: true 
+                x: snappedX, 
+                y: mouseY, 
+                visible: true,
+                dataIndex: clampedDataIndex
             });
         } else {
-            setCrosshair({ x: 0, y: 0, visible: false });
+            setCrosshair({ x: 0, y: 0, visible: false, dataIndex: null });
         }
     }
-  }, [isDraggingRef, dragStart, visibleData.totalPoints, chartWidth, processedData.data, zoom, padding, chartHeight]);
+  }, [isDraggingRef, dragStart, visibleData.totalPoints, chartWidth, processedData.data, zoom, padding, chartHeight, visibleData.data.length, getX, chartContainerWidth, chartContainerHeight]);
 
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);
@@ -519,7 +537,7 @@ const TradingViewChart = ({
   }, []);
 
   const handleMouseLeave = useCallback(() => {
-    setCrosshair({ x: 0, y: 0, visible: false });
+    setCrosshair({ x: 0, y: 0, visible: false, dataIndex: null });
     setHoveredPoint(null);
     setIsDragging(false);
     isDraggingRef.current = false;
@@ -580,6 +598,30 @@ const TradingViewChart = ({
       document.removeEventListener('mouseup', handleGlobalMouseUp);
     };
   }, [isDragging, dragStart, visibleData.totalPoints, chartWidth, processedData.data, zoom]);
+
+  // Get crosshair data for displaying values
+  const getCrosshairData = () => {
+    if (!crosshair.visible || crosshair.dataIndex === null || !visibleData.data.length) return null;
+    
+    const dataIndex = crosshair.dataIndex;
+    const dataPoint = visibleData.data[dataIndex];
+    const secondaryPoint = visibleData.secondaryData ? visibleData.secondaryData[dataIndex] : null;
+    
+    if (!dataPoint) return null;
+    
+    // Calculate Y value at crosshair Y position
+    const crosshairValue = priceData.max - ((crosshair.y - padding.top) / (chartHeight - padding.top - padding.bottom)) * priceData.range;
+    
+    return {
+      date: dataPoint.date,
+      value: crosshairValue,
+      dataIndex,
+      dataPoint,
+      secondaryPoint
+    };
+  };
+
+  const crosshairData = getCrosshairData();
 
   // Rendering functions (keeping existing logic)
   const renderCandlestick = (item, index) => {
@@ -734,6 +776,15 @@ const TradingViewChart = ({
         })}
       </g>
     );
+  };
+
+  // Format value for display
+  const formatValue = (value, isPercent = false) => {
+    if (isPercent) {
+      return `${value >= 0 ? '+' : ''}${value.toFixed(2)}%`;
+    } else {
+      return `${value.toFixed(2)}`;
+    }
   };
 
   if (!data || data.length === 0) {
@@ -893,7 +944,8 @@ const TradingViewChart = ({
                       y={line.y + 4}
                       textAnchor="end"
                       fontSize={Y_AXIS_FONT}
-                      fill={themeColors.text}
+                      fill={crosshair.visible && Math.abs(crosshairData?.value - parseFloat(line.price)) < (priceData.range * 0.05)
+                        ? themeColors.primary.line : themeColors.text}
                       fontWeight="500"
                     >
                       ${line.price}
@@ -943,7 +995,8 @@ const TradingViewChart = ({
                       y={chartContainerHeight - 10}
                       textAnchor="middle"
                       fontSize={X_AXIS_FONT}
-                      fill={themeColors.text}
+                      fill={crosshair.visible && crosshairData && Math.abs(crosshair.x - line.x) < 20
+                        ? themeColors.primary.line : themeColors.text}
                     >
                       {line.label}
                     </text>
@@ -968,87 +1021,98 @@ const TradingViewChart = ({
           {/* Crosshair (only show when not dragging) */}
           {crosshair.visible && !isDragging && (
             <g className="crosshair" pointerEvents="none">
-              {/* Vertical line - constrain to chart area */}
+              {/* Vertical line - perfectly aligned */}
               <line
-                  x1={Math.max(padding.left, Math.min(crosshair.x, chartWidth - padding.right))}
-                  y1={padding.top}
-                  x2={Math.max(padding.left, Math.min(crosshair.x, chartWidth - padding.right))}
-                  y2={chartHeight}
-                  stroke={themeColors.text}
-                  strokeWidth="1"
-                  strokeDasharray="3,3"
-                  opacity="0.4"
+                x1={crosshair.x}
+                y1={padding.top}
+                x2={crosshair.x}
+                y2={chartHeight}
+                stroke={isDark ? "#60A5FA" : "#3B82F6"}
+                strokeWidth="1"
+                strokeDasharray="4,4"
+                opacity="0.8"
               />
-              {/* Horizontal line - constrain to chart area */}
+              
+              {/* Horizontal line - perfectly aligned */}
               <line
-                  x1={padding.left}
-                  y1={Math.max(padding.top, Math.min(crosshair.y, chartHeight))}
-                  x2={chartWidth - padding.right}
-                  y2={Math.max(padding.top, Math.min(crosshair.y, chartHeight))}
-                  stroke={themeColors.text}
-                  strokeWidth="1"
-                  strokeDasharray="3,3"
-                  opacity="0.4"
+                x1={padding.left}
+                y1={crosshair.y}
+                x2={chartWidth - padding.right}
+                y2={crosshair.y}
+                stroke={isDark ? "#60A5FA" : "#3B82F6"}
+                strokeWidth="1"
+                strokeDasharray="4,4"
+                opacity="0.8"
+              />
+
+              {/* Crosshair intersection circle */}
+              <circle
+                cx={crosshair.x}
+                cy={crosshair.y}
+                r="4"
+                fill={isDark ? "#60A5FA" : "#3B82F6"}
+                stroke="white"
+                strokeWidth="2"
+                opacity="0.9"
               />
             </g>
           )}
 
-          {/* Hover Tooltip */}
-          {hoveredPoint && !isDragging && (
-            <g className="tooltip" pointerEvents="none">
+          {/* Crosshair Y-axis value label */}
+          {crosshair.visible && crosshairData && !isDragging && (
+            <g className="crosshair-labels">
               <rect
-                x={hoveredPoint.x - 80}
-                y={hoveredPoint.y - 120}
-                width="160"
-                height={hoveredPoint.isSecondary ? "70" : (chartType === 'candlestick' ? "100" : "70")}
-                rx="8"
-                fill="rgba(0,0,0,0.9)"
-                stroke={themeColors.grid}
+                x={5}
+                y={crosshair.y - 12}
+                width={55}
+                height={24}
+                fill={isDark ? "#1F2937" : "#FFFFFF"}
+                stroke={isDark ? "#60A5FA" : "#3B82F6"}
+                strokeWidth="1"
+                rx="4"
+                opacity="0.95"
               />
-              <text x={hoveredPoint.x} y={hoveredPoint.y - 95} textAnchor="middle" fontSize="12" fill="white" fontWeight="bold">
-                {formatDateLabel(hoveredPoint.date || hoveredPoint.label, processedData.resampleType)}
+              <text
+                x={32}
+                y={crosshair.y + 4}
+                textAnchor="middle"
+                fontSize="12"
+                fill={isDark ? "#60A5FA" : "#3B82F6"}
+                fontWeight="600"
+              >
+                ${crosshairData.value.toFixed(2)}
               </text>
-              
-              {hoveredPoint.isSecondary ? (
-                <g>
-                  <text x={hoveredPoint.x} y={hoveredPoint.y - 75} textAnchor="middle" fontSize="11" fill={themeColors.secondary.line}>
-                    {secondaryLabel}: ${(hoveredPoint.value || hoveredPoint.close)?.toFixed(2)}
-                  </text>
-                </g>
-              ) : chartType === 'candlestick' ? (
-                <g>
-                  <text x={hoveredPoint.x} y={hoveredPoint.y - 80} textAnchor="middle" fontSize="11" fill="#10B981">
-                    O: ${hoveredPoint.open?.toFixed(2)}
-                  </text>
-                  <text x={hoveredPoint.x} y={hoveredPoint.y - 68} textAnchor="middle" fontSize="11" fill="#EF4444">
-                    H: ${hoveredPoint.high?.toFixed(2)}
-                  </text>
-                  <text x={hoveredPoint.x} y={hoveredPoint.y - 56} textAnchor="middle" fontSize="11" fill="#F59E0B">
-                    L: ${hoveredPoint.low?.toFixed(2)}
-                  </text>
-                  <text x={hoveredPoint.x} y={hoveredPoint.y - 44} textAnchor="middle" fontSize="11" fill="white">
-                    C: ${hoveredPoint.close?.toFixed(2)}
-                  </text>
-                  {hoveredPoint.volume && showVolumeToggle && (
-                    <text x={hoveredPoint.x} y={hoveredPoint.y - 32} textAnchor="middle" fontSize="10" fill="#94A3B8">
-                      Vol: {(hoveredPoint.volume / 1000000).toFixed(1)}M
-                    </text>
-                  )}
-                </g>
-              ) : (
-                <g>
-                  <text x={hoveredPoint.x} y={hoveredPoint.y - 75} textAnchor="middle" fontSize="11" fill={themeColors.primary.line}>
-                    {primaryLabel}: ${hoveredPoint.close?.toFixed(2)}
-                  </text>
-                  {hoveredPoint.volume && showVolumeToggle && (
-                    <text x={hoveredPoint.x} y={hoveredPoint.y - 57} textAnchor="middle" fontSize="10" fill="#94A3B8">
-                      Vol: {(hoveredPoint.volume / 1000000).toFixed(1)}M
-                    </text>
-                  )}
-                </g>
-              )}
             </g>
           )}
+
+          {/* Crosshair X-axis date label */}
+          {crosshair.visible && crosshairData && !isDragging && (
+            <g className="crosshair-date-label">
+              <rect
+                x={crosshair.x - 35}
+                y={chartContainerHeight - 35}
+                width={70}
+                height={20}
+                fill={isDark ? "#1F2937" : "#FFFFFF"}
+                stroke={isDark ? "#60A5FA" : "#3B82F6"}
+                strokeWidth="1"
+                rx="4"
+                opacity="0.95"
+              />
+              <text
+                x={crosshair.x}
+                y={chartContainerHeight - 22}
+                textAnchor="middle"
+                fontSize="11"
+                fill={isDark ? "#60A5FA" : "#3B82F6"}
+                fontWeight="600"
+              >
+                {formatDateLabel(crosshairData.date, processedData.resampleType)}
+              </text>
+            </g>
+          )}
+
+
 
           {/* Zoom indicator overlay */}
           {zoom > 1 && (
